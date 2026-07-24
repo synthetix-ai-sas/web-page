@@ -3,7 +3,7 @@ import { ClientRouter } from 'astro:transitions';
 import '../styles/global.css';
 import Navbar from '../components/Navbar.astro';
 import Footer from '../components/Footer.astro';
-import { useTranslations, type Lang } from '../i18n/utils';
+import { useTranslations, switchLangPath, type Lang } from '../i18n/utils';
 
 interface Props {
   title: string;
@@ -13,6 +13,12 @@ interface Props {
 const { title, lang } = Astro.props;
 const t = useTranslations(lang);
 const description = Astro.props.description ?? t('footer.tagline');
+
+const currentPath = Astro.url.pathname;
+const esHref = new URL(switchLangPath(currentPath, 'es'), Astro.site).toString();
+const enHref = new URL(switchLangPath(currentPath, 'en'), Astro.site).toString();
+const canonicalHref = lang === 'es' ? esHref : enHref;
+const ogLocale = { es: 'es_ES', en: 'en_US' } as const satisfies Record<Lang, string>;
 ---
 <!doctype html>
 <html lang={lang}>
@@ -21,6 +27,13 @@ const description = Astro.props.description ?? t('footer.tagline');
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content={description} />
     <title>{title} — Synthetix AI</title>
+
+    <link rel="canonical" href={canonicalHref} />
+    <link rel="alternate" hreflang="es" href={esHref} />
+    <link rel="alternate" hreflang="en" href={enHref} />
+    <link rel="alternate" hreflang="x-default" href={esHref} />
+    <meta property="og:locale" content={ogLocale[lang]} />
+    <meta property="og:locale:alternate" content={ogLocale[lang === 'es' ? 'en' : 'es']} />
 
     <!-- Design-system type families: Montserrat (display), Inter (body/UI), JetBrains Mono (code/data) -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
