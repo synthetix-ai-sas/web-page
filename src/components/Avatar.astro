@@ -1,0 +1,24 @@
+---
+interface Props {
+  initials: string;
+}
+const { initials } = Astro.props;
+---
+<div class="sx-avatar" aria-hidden="true">{initials}</div>
+
+<style>
+  .sx-avatar {
+    width: 96px;
+    height: 96px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--sx-gradient-cyan);
+    color: #fff;
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: var(--fs-h2);
+    margin: 0 auto var(--sx-space-4);
+  }
+</style>

@@ -270,6 +270,12 @@ export const ui = {
     'legal.terms.s7.body': 'Podemos actualizar estos Términos en cualquier momento; la versión vigente será siempre la publicada en esta página.',
     'legal.terms.s8.title': '8. Contacto',
     'legal.terms.s8.body': 'Para preguntas sobre estos Términos, escríbanos a contact@synthetixaisas.com.',
+
+    // ---- Nosotros: Equipo ----
+    'about.team.eyebrow': 'Nuestro Equipo',
+    'about.team.title': 'Las personas detrás de Synthetix AI',
+    'about.team.lead': 'Un equipo fundador con experiencia en ingeniería de software y arquitectura de IA.',
+    'about.team.role': 'Cofundador',
   },
 
   en: {
@@ -534,6 +540,12 @@ export const ui = {
     'legal.terms.s7.body': 'We may update these Terms at any time; the version published on this page is always the current one.',
     'legal.terms.s8.title': '8. Contact',
     'legal.terms.s8.body': 'For questions about these Terms, write to us at contact@synthetixaisas.com.',
+
+    // ---- Nosotros: Team ----
+    'about.team.eyebrow': 'Our Team',
+    'about.team.title': 'The people behind Synthetix AI',
+    'about.team.lead': 'A founding team with a background in software engineering and AI architecture.',
+    'about.team.role': 'Co-Founder',
   },
 } as const;
 

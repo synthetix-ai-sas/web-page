@@ -1,6 +1,7 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import Card from '../Card.astro';
+import Avatar from '../Avatar.astro';
 import { useTranslations, type Lang, type UiKey } from '../../i18n/utils';
 
 interface Props {
@@ -13,6 +14,13 @@ const steps: { title: UiKey; body: UiKey }[] = [
   { title: 'about.how.1.title', body: 'about.how.1.body' },
   { title: 'about.how.2.title', body: 'about.how.2.body' },
   { title: 'about.how.3.title', body: 'about.how.3.body' },
+];
+
+const team = [
+  { name: 'Cristian Camilo Montes Londoño', initials: 'CM' },
+  { name: 'Sergio Molina Cadavid', initials: 'SM' },
+  { name: 'Santiago Rentería Gutiérrez', initials: 'SR' },
+  { name: 'Mateo Rodríguez Morales', initials: 'MR' },
 ];
 
 const faqs: { q: UiKey; a: UiKey }[] = [
@@ -46,6 +54,25 @@ const faqs: { q: UiKey; a: UiKey }[] = [
     </div>
   </section>
 
+  <section id="equipo" class="grain-surface">
+    <div class="container">
+      <div class="section-head" data-reveal>
+        <span class="eyebrow">{t('about.team.eyebrow')}</span>
+        <h2>{t('about.team.title')}</h2>
+        <p>{t('about.team.lead')}</p>
+      </div>
+      <div class="team-grid">
+        {team.map((member) => (
+          <div class="team-card" data-reveal>
+            <Avatar initials={member.initials} />
+            <h4>{member.name}</h4>
+            <p class="team-role">{t('about.team.role')}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
   <section id="faq">
     <div class="container">
       <div class="section-head" data-reveal>
@@ -67,6 +94,9 @@ const faqs: { q: UiKey; a: UiKey }[] = [
 <style>
   .lead { max-width: 560px; font-size: 18px; }
   .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--sx-space-6); }
+  .team-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--sx-space-6); text-align: center; }
+  .team-card h4 { margin: var(--sx-space-2) 0 var(--sx-space-1); }
+  .team-role { color: var(--sx-slate-400); font-size: var(--fs-sm); margin: 0; }
   .faq-list { max-width: 720px; }
   .faq-item {
     border-bottom: 1px solid var(--sx-slate-700);
@@ -86,8 +116,10 @@ const faqs: { q: UiKey; a: UiKey }[] = [
   @media (max-width: 900px) {
     .grid-3 { grid-template-columns: 1fr 1fr; }
     .grid-3 > :last-child { grid-column: 1 / -1; }
+    .team-grid { grid-template-columns: 1fr 1fr; }
   }
   @media (max-width: 560px) {
     .grid-3 { grid-template-columns: 1fr; }
+    .team-grid { grid-template-columns: 1fr; }
   }
 </style>
