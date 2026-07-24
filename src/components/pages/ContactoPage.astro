@@ -11,6 +11,7 @@ interface Props {
 }
 const { lang } = Astro.props;
 const t = useTranslations(lang);
+const mapSrc = `https://maps.google.com/maps?q=${encodeURIComponent(t('contact.office.value'))}&z=15&output=embed`;
 ---
 <Layout title={t('contact.meta.title')} lang={lang}>
   <section class="grain-surface">
@@ -28,6 +29,17 @@ const t = useTranslations(lang);
           <p><a href="mailto:hello@synthetix.ai">hello@synthetix.ai</a></p>
           <h4>{t('contact.office')}</h4>
           <p>{t('contact.office.value')}</p>
+          <div class="office-map">
+            <iframe
+              src={mapSrc}
+              width="100%"
+              height="220"
+              style="border:0"
+              loading="lazy"
+              referrerpolicy="no-referrer-when-downgrade"
+              title={t('contact.office.value')}
+            ></iframe>
+          </div>
         </div>
       </div>
 
@@ -58,6 +70,8 @@ const t = useTranslations(lang);
   .office-info h4 { font-size: var(--fs-sm); text-transform: uppercase; letter-spacing: 0.06em; color: var(--sx-slate-400); margin: var(--sx-space-4) 0 var(--sx-space-1); }
   .office-info p { margin: 0; }
   .office-info a { color: var(--sx-tech-cyan); }
+  .office-map { margin-top: var(--sx-space-4); border-radius: var(--sx-radius-lg); overflow: hidden; }
+  .office-map iframe { display: block; }
   .contact-form { display: flex; flex-direction: column; }
   @media (max-width: 900px) { .contact-grid { grid-template-columns: 1fr; } }
 </style>
