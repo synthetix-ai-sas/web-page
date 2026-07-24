@@ -1,0 +1,67 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Card from '../Card.astro';
+import Button from '../Button.astro';
+import { useTranslations, localizePath, type Lang, type UiKey } from '../../i18n/utils';
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+
+const industries: { id?: string; name: UiKey; desc: UiKey }[] = [
+  { id: 'salud', name: 'ind.salud', desc: 'ind.salud.desc' },
+  { id: 'finanzas', name: 'ind.finanzas', desc: 'ind.finanzas.desc' },
+  { id: 'logistica', name: 'ind.logistica', desc: 'ind.logistica.desc' },
+  { name: 'ind.construccion', desc: 'ind.construccion.desc' },
+  { name: 'ind.proptech', desc: 'ind.proptech.desc' },
+  { name: 'ind.ecommerce', desc: 'ind.ecommerce.desc' },
+  { name: 'ind.educacion', desc: 'ind.educacion.desc' },
+  { name: 'ind.suministro', desc: 'ind.suministro.desc' },
+  { name: 'ind.hoteleria', desc: 'ind.hoteleria.desc' },
+];
+---
+<Layout title={t('ind.meta.title')} lang={lang}>
+  <section>
+    <div class="container">
+      <span class="eyebrow">{t('ind.page.eyebrow')}</span>
+      <h1>{t('ind.page.title')}</h1>
+      <p class="lead">{t('ind.page.lead')}</p>
+    </div>
+  </section>
+
+  <section class="grain-surface">
+    <div class="container industry-grid">
+      {industries.map((i) => (
+        <Card data-reveal id={i.id}>
+          <h3>{t(i.name)}</h3>
+          <p>{t(i.desc)}</p>
+        </Card>
+      ))}
+    </div>
+  </section>
+
+  <section class="cta-final grain-surface">
+    <div class="container cta-final__inner" data-reveal>
+      <hr class="divider cta-final__rule" />
+      <h2>{t('ind.cta.title')}</h2>
+      <p>{t('ind.cta.lead')}</p>
+      <Button href={localizePath('/contacto', lang)}>{t('nav.cta')}</Button>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .lead { max-width: 560px; font-size: 18px; }
+  .industry-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--sx-space-6);
+  }
+  .cta-final { text-align: center; }
+  .cta-final__inner { max-width: 560px; margin: 0 auto; }
+  .cta-final__rule { width: 72px; margin: 0 auto var(--sx-space-6); }
+  @media (max-width: 900px) { .industry-grid { grid-template-columns: 1fr 1fr; } }
+  @media (max-width: 560px) { .industry-grid { grid-template-columns: 1fr; } }
+</style>

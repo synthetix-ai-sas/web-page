@@ -1,0 +1,46 @@
+---
+interface Props {
+  value: string;
+  label: string;
+  sub?: string;
+}
+const { value, label, sub } = Astro.props;
+---
+<div class="sx-stat">
+  <span class="sx-stat__value">{value}</span>
+  <span class="sx-stat__label">{label}</span>
+  {sub && <span class="sx-stat__sub">{sub}</span>}
+</div>
+
+<style>
+  .sx-stat {
+    border: 1px solid var(--sx-slate-700);
+    border-radius: var(--sx-radius-lg);
+    padding: var(--sx-space-6);
+    background: rgba(255,255,255,0.02);
+  }
+  .sx-stat__value {
+    display: block;
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: 34px;
+    background: var(--sx-gradient-cyan);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    line-height: 1;
+    margin-bottom: var(--sx-space-2);
+  }
+  .sx-stat__label {
+    display: block;
+    color: var(--sx-slate-100);
+    font-weight: 600;
+    font-size: var(--fs-sm);
+  }
+  .sx-stat__sub {
+    display: block;
+    color: var(--sx-slate-400);
+    font-size: var(--fs-xs);
+    margin-top: 2px;
+  }
+</style>

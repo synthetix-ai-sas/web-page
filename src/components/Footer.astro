@@ -1,0 +1,120 @@
+---
+import mark from '../assets/logo-mark.png';
+import { useTranslations, localizePath, type Lang } from '../i18n/utils';
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+
+const year = new Date().getFullYear();
+---
+<footer class="sx-footer">
+  <div class="container sx-footer__grid">
+    <div class="sx-footer__brand">
+      <div class="sx-footer__logo">
+        <img src={mark.src} alt="" width="35" height="32" />
+        <span>Synthetix<b>AI</b></span>
+      </div>
+      <p>{t('footer.tagline')}</p>
+      <div class="sx-footer__social">
+        <a href="#" aria-label="LinkedIn">in</a>
+        <a href="#" aria-label="X">x</a>
+        <a href="#" aria-label="GitHub">gh</a>
+      </div>
+    </div>
+
+    <div class="sx-footer__col">
+      <h4>{t('footer.col.services')}</h4>
+      <a href={localizePath('/servicios#desarrollo', lang)}>{t('nav.services.dev')}</a>
+      <a href={localizePath('/servicios#agentes', lang)}>{t('nav.services.agents')}</a>
+      <a href={localizePath('/servicios#vibe-to-production', lang)}>{t('nav.services.vibe')}</a>
+      <a href={localizePath('/servicios', lang)}>{t('footer.services.all')}</a>
+    </div>
+
+    <div class="sx-footer__col">
+      <h4>{t('footer.col.company')}</h4>
+      <a href={localizePath('/nosotros', lang)}>{t('nav.about')}</a>
+      <a href={localizePath('/carreras', lang)}>{t('nav.careers')}</a>
+      <a href={localizePath('/casos-de-exito', lang)}>{t('nav.cases')}</a>
+      <a href={localizePath('/nosotros#faq', lang)}>{t('nav.about.faq')}</a>
+    </div>
+
+    <div class="sx-footer__col">
+      <h4>{t('footer.col.contact')}</h4>
+      <p class="sx-footer__hours">{t('footer.hours')}<br/>{t('footer.hours.value')}</p>
+      <a href="mailto:hello@synthetix.ai">hello@synthetix.ai</a>
+      <a href={localizePath('/contacto', lang)}>{t('footer.cta')}</a>
+    </div>
+  </div>
+
+  <div class="container sx-footer__legal">
+    <span>© {year} {t('footer.rights')}</span>
+    <div class="sx-footer__legal-links">
+      <a href="#">{t('footer.privacy')}</a>
+      <a href="#">{t('footer.terms')}</a>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .sx-footer {
+    background: var(--sx-deep-shadow);
+    border-top: 1px solid var(--sx-slate-800);
+    padding-top: var(--sx-space-24);
+  }
+  .sx-footer__grid {
+    display: grid;
+    grid-template-columns: 1.4fr 1fr 1fr 1fr;
+    gap: var(--sx-space-12);
+    padding-bottom: var(--sx-space-16);
+  }
+  .sx-footer__logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: 20px;
+    color: #fff;
+  }
+  .sx-footer__logo b { color: var(--sx-tech-cyan); }
+  .sx-footer__brand p { margin-top: var(--sx-space-3); max-width: 320px; }
+  .sx-footer__social { display: flex; gap: var(--sx-space-3); margin-top: var(--sx-space-4); }
+  .sx-footer__social a {
+    width: 32px; height: 32px;
+    display: flex; align-items: center; justify-content: center;
+    border: 1px solid var(--sx-slate-700);
+    border-radius: var(--sx-radius-md);
+    font-family: var(--font-mono);
+    font-size: var(--fs-xs);
+    color: var(--sx-slate-300);
+  }
+  .sx-footer__social a:hover { border-color: var(--sx-tech-cyan); color: var(--sx-tech-cyan); }
+
+  .sx-footer__col h4 { font-size: var(--fs-sm); text-transform: uppercase; letter-spacing: 0.08em; color: var(--sx-slate-400); margin-bottom: var(--sx-space-4); }
+  .sx-footer__col a { display: block; color: var(--sx-slate-200); font-size: var(--fs-sm); margin-bottom: var(--sx-space-3); }
+  .sx-footer__col a:hover { color: var(--sx-tech-cyan); }
+  .sx-footer__hours { color: var(--sx-slate-400); font-size: var(--fs-sm); }
+
+  .sx-footer__legal {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: var(--sx-space-6) 0;
+    border-top: 1px solid var(--sx-slate-800);
+    font-size: var(--fs-xs);
+    color: var(--sx-slate-500);
+  }
+  .sx-footer__legal-links { display: flex; gap: var(--sx-space-6); }
+  .sx-footer__legal-links a:hover { color: var(--sx-tech-cyan); }
+
+  @media (max-width: 900px) {
+    .sx-footer__grid { grid-template-columns: 1fr 1fr; }
+    .sx-footer__legal { flex-direction: column; gap: var(--sx-space-3); text-align: center; }
+  }
+  @media (max-width: 560px) {
+    .sx-footer__grid { grid-template-columns: 1fr; }
+  }
+</style>

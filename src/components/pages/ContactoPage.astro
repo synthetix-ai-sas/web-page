@@ -1,0 +1,63 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Card from '../Card.astro';
+import Input from '../Input.astro';
+import Button from '../Button.astro';
+import MeshBackground from '../MeshBackground.astro';
+import { useTranslations, type Lang } from '../../i18n/utils';
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+---
+<Layout title={t('contact.meta.title')} lang={lang}>
+  <section class="grain-surface">
+    <MeshBackground />
+    <div class="container contact-grid">
+      <div data-reveal>
+        <span class="eyebrow">{t('contact.eyebrow')}</span>
+        <h1>{t('contact.title')}</h1>
+        <p class="lead">{t('contact.lead')}</p>
+
+        <div class="office-info">
+          <h4>{t('contact.hours')}</h4>
+          <p>{t('contact.hours.value')}</p>
+          <h4>{t('contact.mail')}</h4>
+          <p><a href="mailto:hello@synthetix.ai">hello@synthetix.ai</a></p>
+          <h4>{t('contact.office')}</h4>
+          <p>{t('contact.office.value')}</p>
+        </div>
+      </div>
+
+      <Card data-reveal>
+        <form class="contact-form">
+          <Input label={t('contact.form.name')} name="name" required />
+          <Input label={t('contact.form.email')} name="email" type="email" required />
+          <Input label={t('contact.form.company')} name="company" />
+          <Input label={t('contact.form.message')} name="message" textarea required />
+          <Button type="submit">{t('contact.form.submit')}</Button>
+        </form>
+      </Card>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .lead { max-width: 480px; font-size: 18px; }
+  .contact-grid {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--sx-space-16);
+    align-items: start;
+  }
+  .office-info { margin-top: var(--sx-space-8); }
+  .office-info h4 { font-size: var(--fs-sm); text-transform: uppercase; letter-spacing: 0.06em; color: var(--sx-slate-400); margin: var(--sx-space-4) 0 var(--sx-space-1); }
+  .office-info p { margin: 0; }
+  .office-info a { color: var(--sx-tech-cyan); }
+  .contact-form { display: flex; flex-direction: column; }
+  @media (max-width: 900px) { .contact-grid { grid-template-columns: 1fr; } }
+</style>

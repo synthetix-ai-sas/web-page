@@ -1,0 +1,211 @@
+/* =========================================================
+   SYNTHETIX AI — DESIGN TOKENS
+   Source: Synthetix AI Design System (full reference)
+   ========================================================= */
+
+@font-face {
+  font-family: 'Montserrat';
+  src: local('Montserrat');
+}
+
+:root {
+  /* ---------- Brand core ---------- */
+  --sx-electric-blue: #0052D4;
+  --sx-tech-cyan: #00D2FF;
+  --sx-deep-shadow: #0B1B3D;
+  --sx-premium-dark: #0F172A;
+
+  /* ---------- Blue ramp 50 -> 900 ---------- */
+  --sx-blue-50:  #EAF1FF;
+  --sx-blue-100: #D2E2FF;
+  --sx-blue-200: #A8C6FF;
+  --sx-blue-300: #7AA7FF;
+  --sx-blue-400: #4A85F5;
+  --sx-blue-500: #2E6BEA;
+  --sx-blue-600: #0052D4;
+  --sx-blue-700: #0041A8;
+  --sx-blue-800: #043080;
+  --sx-blue-900: #0B1B3D;
+
+  /* ---------- Slate neutrals 950 -> 50 ---------- */
+  --sx-slate-950: #0B121F;
+  --sx-slate-900: #0F172A;
+  --sx-slate-800: #172038;
+  --sx-slate-700: #232D46;
+  --sx-slate-600: #384156;
+  --sx-slate-500: #56607A;
+  --sx-slate-400: #7C8AA5;
+  --sx-slate-300: #A6B2C9;
+  --sx-slate-200: #CBD4E5;
+  --sx-slate-100: #E4E9F2;
+  --sx-slate-50:  #F4F7FB;
+
+  /* ---------- Semantic states ---------- */
+  --sx-info: #00D2FF;
+  --sx-success: #2FBE6E;
+  --sx-warning: #F0A93A;
+  --sx-danger: #E5534B;
+
+  /* ---------- Gradients ---------- */
+  --sx-gradient-brand: linear-gradient(90deg, var(--sx-deep-shadow) 0%, var(--sx-electric-blue) 55%, #1AA9FF 100%);
+  --sx-gradient-cyan: linear-gradient(90deg, var(--sx-electric-blue) 0%, var(--sx-tech-cyan) 100%);
+
+  /* ---------- Typography ---------- */
+  --font-display: 'Montserrat', 'Montserrat Fallback', sans-serif;
+  --font-body: 'Inter', 'Inter Fallback', sans-serif;
+  --font-mono: 'JetBrains Mono', 'JetBrains Mono Fallback', monospace;
+
+  --fs-display: 44px;
+  --fs-h1: 36px;
+  --fs-h2: 28px;
+  --fs-h3: 22px;
+  --fs-body: 16px;
+  --fs-sm: 14px;
+  --fs-xs: 12px;
+
+  --ls-eyebrow: 0.28em;
+
+  /* ---------- Spacing (4px base grid) ---------- */
+  --sx-space-1: 4px;
+  --sx-space-2: 8px;
+  --sx-space-3: 12px;
+  --sx-space-4: 16px;
+  --sx-space-6: 24px;
+  --sx-space-8: 32px;
+  --sx-space-12: 48px;
+  --sx-space-16: 64px;
+  --sx-space-24: 96px;
+
+  /* ---------- Radii ---------- */
+  --sx-radius-xs: 4px;
+  --sx-radius-md: 8px;
+  --sx-radius-lg: 12px;
+  --sx-radius-2xl: 22px;
+  --sx-radius-pill: 999px;
+
+  /* ---------- Elevation & glow ---------- */
+  --sx-shadow-sm: 0 1px 2px rgba(3, 8, 20, 0.4);
+  --sx-shadow-md: 0 8px 24px rgba(3, 8, 20, 0.45);
+  --sx-glow-cyan: 0 0 0 3px rgba(0, 210, 255, 0.35);
+  --sx-glow-blue: 0 0 32px rgba(0, 82, 212, 0.45);
+
+  /* ---------- Motion ---------- */
+  --sx-duration-fast: 120ms;
+  --sx-duration-base: 200ms;
+  --sx-duration-slow: 320ms;
+  --sx-ease-standard: cubic-bezier(0.4, 0, 0.2, 1);
+  --sx-ease-out: cubic-bezier(0, 0, 0.2, 1);
+
+  /* ---------- Layout ---------- */
+  --sx-container: 1180px;
+}
+
+* { box-sizing: border-box; }
+
+html {
+  scroll-behavior: smooth;
+  background: var(--sx-premium-dark);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-body);
+  font-size: var(--fs-body);
+  font-weight: 400;
+  line-height: 1.55;
+  color: var(--sx-slate-100);
+  background: var(--sx-premium-dark);
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, h4 {
+  font-family: var(--font-display);
+  font-weight: 800;
+  color: #fff;
+  margin: 0 0 var(--sx-space-4);
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+}
+
+h1 { font-size: var(--fs-display); }
+h2 { font-size: var(--fs-h1); }
+h3 { font-size: var(--fs-h2); }
+h4 { font-size: var(--fs-h3); }
+
+p { margin: 0 0 var(--sx-space-4); color: var(--sx-slate-300); }
+
+a { color: inherit; text-decoration: none; }
+
+code, .mono { font-family: var(--font-mono); }
+
+::selection { background: var(--sx-electric-blue); color: #fff; }
+
+:focus-visible {
+  outline: none;
+  box-shadow: var(--sx-glow-cyan);
+  border-radius: var(--sx-radius-md);
+}
+
+.container {
+  max-width: var(--sx-container);
+  margin: 0 auto;
+  padding: 0 var(--sx-space-6);
+}
+
+.eyebrow {
+  font-family: var(--font-mono);
+  font-size: var(--fs-xs);
+  letter-spacing: var(--ls-eyebrow);
+  text-transform: uppercase;
+  color: var(--sx-tech-cyan);
+  font-weight: 600;
+  display: inline-block;
+  margin-bottom: var(--sx-space-3);
+}
+
+section {
+  padding: var(--sx-space-24) 0;
+  position: relative;
+}
+
+.section-head {
+  max-width: 640px;
+  margin-bottom: var(--sx-space-12);
+}
+
+.section-head p { color: var(--sx-slate-300); font-size: var(--fs-body); }
+
+/* Divider used between hero-style blocks, echoing the reference's blue rule */
+.divider {
+  height: 2px;
+  background: var(--sx-gradient-cyan);
+  border: none;
+  opacity: 0.5;
+}
+
+/* Subtle neural-mesh dotted grid background, per the brand's motif rules:
+   clean lines + nodes, never a literal brain silhouette. */
+.mesh-bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0.5;
+}
+
+.grain-surface {
+  background-color: var(--sx-slate-900);
+  background-image:
+    linear-gradient(rgba(0, 210, 255, 0.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 210, 255, 0.06) 1px, transparent 1px);
+  background-size: 42px 42px;
+}

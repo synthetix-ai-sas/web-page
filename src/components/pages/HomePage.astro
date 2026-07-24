@@ -1,0 +1,241 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Button from '../Button.astro';
+import Badge from '../Badge.astro';
+import Card from '../Card.astro';
+import StatCard from '../StatCard.astro';
+import ProcessStep from '../ProcessStep.astro';
+import MeshBackground from '../MeshBackground.astro';
+import { useTranslations, localizePath, type Lang } from '../../i18n/utils';
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+
+const industryKeys = ['salud', 'finanzas', 'logistica', 'construccion', 'proptech', 'ecommerce', 'educacion', 'suministro', 'hoteleria'] as const;
+const stack = ['Python', 'TypeScript', 'React', 'AWS', 'PostgreSQL', 'OpenAI', 'Kubernetes', 'Docker'];
+
+const whyUs = [1, 2, 3, 4, 5, 6] as const;
+---
+<Layout title={t('home.meta.title')} lang={lang}>
+  <!-- HERO -->
+  <section class="hero grain-surface">
+    <MeshBackground />
+    <div class="container hero__inner">
+      <span class="eyebrow">{t('home.hero.eyebrow')}</span>
+      <h1>{t('home.hero.title')}</h1>
+      <p class="hero__lead">{t('home.hero.lead')}</p>
+
+      <div class="hero__stats">
+        <StatCard value="5x" label={t('home.hero.stat1.label')} sub={t('home.hero.stat1.sub')} />
+        <StatCard value="4x" label={t('home.hero.stat2.label')} sub={t('home.hero.stat2.sub')} />
+        <StatCard value="85%" label={t('home.hero.stat3.label')} sub={t('home.hero.stat3.sub')} />
+      </div>
+
+      <div class="hero__cta">
+        <Button href={localizePath('/contacto', lang)}>{t('nav.cta')}</Button>
+        <Button href="#proceso" variant="outline">{t('home.hero.cta.secondary')}</Button>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider container" />
+
+  <!-- PROCESO -->
+  <section id="proceso">
+    <div class="container">
+      <div class="section-head" data-reveal>
+        <span class="eyebrow">{t('home.process.eyebrow')}</span>
+        <h2>{t('home.process.title')}</h2>
+        <p>{t('home.process.lead')}</p>
+      </div>
+
+      <div class="process-grid">
+        <ProcessStep phase={t('common.phase1')} title={t('home.process.p1.title')} payment={t('pay.weekly')}>
+          {t('home.process.p1.body')}
+        </ProcessStep>
+        <ProcessStep phase={t('common.phase2')} title={t('home.process.p2.title')} payment={t('pay.fixed')}>
+          {t('home.process.p2.body')}
+        </ProcessStep>
+        <ProcessStep phase={t('common.phase3')} title={t('home.process.p3.title')} payment={t('pay.monthly')} isLast>
+          {t('home.process.p3.body')}
+        </ProcessStep>
+      </div>
+
+      <Button href={localizePath('/servicios', lang)} variant="ghost">{t('common.moreInfo')}</Button>
+    </div>
+  </section>
+
+  <!-- DOS CAMINOS -->
+  <section id="paths" class="grain-surface">
+    <div class="container">
+      <div class="section-head" data-reveal>
+        <span class="eyebrow">{t('home.paths.eyebrow')}</span>
+        <h2>{t('home.paths.title')}</h2>
+        <p>{t('home.paths.lead')}</p>
+      </div>
+
+      <div class="paths-grid">
+        <Card glow data-reveal>
+          <span class="eyebrow">{t('home.paths.a.eyebrow')}</span>
+          <h3>{t('home.paths.a.title')}</h3>
+          <p>{t('home.paths.a.body')}</p>
+          <Button href={localizePath('/servicios#desarrollo', lang)} variant="outline" size="sm">{t('common.moreInfo')}</Button>
+        </Card>
+        <Card glow data-reveal>
+          <span class="eyebrow">{t('home.paths.b.eyebrow')}</span>
+          <h3>{t('home.paths.b.title')}</h3>
+          <p>{t('home.paths.b.body')}</p>
+          <Button href={localizePath('/servicios#vibe-to-production', lang)} variant="outline" size="sm">{t('common.moreInfo')}</Button>
+        </Card>
+      </div>
+    </div>
+  </section>
+
+  <!-- POR QUÉ NOSOTROS -->
+  <section>
+    <div class="container">
+      <div class="section-head" data-reveal>
+        <span class="eyebrow">{t('home.why.eyebrow')}</span>
+        <h2>{t('home.why.title')}</h2>
+        <p>{t('home.why.lead')}</p>
+      </div>
+
+      <div class="why-grid">
+        {whyUs.map((n) => (
+          <div class="why-item" data-reveal>
+            <span class="why-item__n mono">0{n}</span>
+            <h4>{t(`home.why.${n}.title`)}</h4>
+            <p>{t(`home.why.${n}.body`)}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- INDUSTRIAS -->
+  <section class="grain-surface">
+    <div class="container">
+      <div class="section-head" data-reveal>
+        <span class="eyebrow">{t('home.industries.eyebrow')}</span>
+        <h2>{t('home.industries.title')}</h2>
+        <p>{t('home.industries.lead')}</p>
+      </div>
+      <div class="pill-grid" data-reveal>
+        {industryKeys.map((k) => <Badge tone="brand">{t(`ind.${k}`)}</Badge>)}
+      </div>
+      <Button href={localizePath('/industrias', lang)} variant="ghost">{t('home.industries.cta')}</Button>
+    </div>
+  </section>
+
+  <!-- STACK -->
+  <section>
+    <div class="container">
+      <div class="section-head" data-reveal>
+        <span class="eyebrow">{t('home.stack.eyebrow')}</span>
+        <h2>{t('home.stack.title')}</h2>
+      </div>
+      <div class="stack-grid" data-reveal>
+        {stack.map((tech) => <span class="stack-chip mono">{tech}</span>)}
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA FINAL -->
+  <section class="cta-final grain-surface">
+    <div class="container cta-final__inner" data-reveal>
+      <hr class="divider cta-final__rule" />
+      <h2>{t('home.cta.title')}</h2>
+      <p>{t('home.cta.lead')}</p>
+      <Button href={localizePath('/contacto', lang)}>{t('home.cta.button')}</Button>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .hero { padding-top: var(--sx-space-24); overflow: hidden; }
+  .hero__inner { position: relative; z-index: 1; max-width: 780px; }
+  .hero__lead { font-size: 18px; max-width: 560px; }
+  .hero__stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--sx-space-4);
+    margin: var(--sx-space-8) 0;
+  }
+  .hero__cta { display: flex; gap: var(--sx-space-4); flex-wrap: wrap; }
+
+  .process-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0;
+    max-width: 640px;
+    margin-bottom: var(--sx-space-8);
+  }
+  @media (min-width: 901px) {
+    .process-grid {
+      grid-template-columns: repeat(3, 1fr);
+      gap: var(--sx-space-6);
+      max-width: none;
+      --step-gap: var(--sx-space-6);
+    }
+  }
+
+  .paths-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--sx-space-6);
+    margin-bottom: var(--sx-space-8);
+  }
+
+  .why-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--sx-space-8);
+  }
+  .why-item__n {
+    display: block;
+    color: var(--sx-tech-cyan);
+    font-size: var(--fs-h2);
+    font-weight: 600;
+    margin-bottom: var(--sx-space-2);
+  }
+  .why-item h4 { margin-bottom: var(--sx-space-2); }
+  .why-item p { font-size: var(--fs-sm); }
+
+  .pill-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--sx-space-3);
+    margin-bottom: var(--sx-space-8);
+  }
+
+  .stack-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--sx-space-3);
+  }
+  .stack-chip {
+    padding: var(--sx-space-2) var(--sx-space-4);
+    border: 1px solid var(--sx-slate-700);
+    border-radius: var(--sx-radius-md);
+    font-size: var(--fs-sm);
+    color: var(--sx-slate-300);
+    transition: all var(--sx-duration-base) var(--sx-ease-standard);
+  }
+  .stack-chip:hover { border-color: var(--sx-tech-cyan); color: var(--sx-tech-cyan); }
+
+  .cta-final { text-align: center; }
+  .cta-final__inner { max-width: 560px; margin: 0 auto; }
+  .cta-final__rule { width: 72px; margin: 0 auto var(--sx-space-6); }
+
+  @media (max-width: 900px) {
+    .hero__stats { grid-template-columns: 1fr; }
+    .paths-grid { grid-template-columns: 1fr; }
+    .why-grid { grid-template-columns: 1fr 1fr; }
+  }
+  @media (max-width: 560px) {
+    .why-grid { grid-template-columns: 1fr; }
+  }
+</style>

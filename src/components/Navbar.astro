@@ -1,0 +1,248 @@
+---
+import Button from './Button.astro';
+import mark from '../assets/logo-mark.png';
+import { useTranslations, localizePath, switchLangPath, languages, type Lang } from '../i18n/utils';
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+const currentPath = Astro.url.pathname;
+
+const nav = [
+  {
+    label: t('nav.services'),
+    href: localizePath('/servicios', lang),
+    children: [
+      { label: t('nav.services.dev'), href: localizePath('/servicios#desarrollo', lang) },
+      { label: t('nav.services.agents'), href: localizePath('/servicios#agentes', lang) },
+      { label: t('nav.services.vibe'), href: localizePath('/servicios#vibe-to-production', lang) },
+    ],
+  },
+  {
+    label: t('nav.industries'),
+    href: localizePath('/industrias', lang),
+    children: [
+      { label: t('ind.finanzas'), href: localizePath('/industrias#finanzas', lang) },
+      { label: t('ind.salud'), href: localizePath('/industrias#salud', lang) },
+      { label: t('ind.logistica'), href: localizePath('/industrias#logistica', lang) },
+      { label: t('nav.industries.all'), href: localizePath('/industrias', lang) },
+    ],
+  },
+  {
+    label: t('nav.about'),
+    href: localizePath('/nosotros', lang),
+    children: [
+      { label: t('nav.about.how'), href: localizePath('/nosotros#como-trabajamos', lang) },
+      { label: t('nav.about.faq'), href: localizePath('/nosotros#faq', lang) },
+    ],
+  },
+  { label: t('nav.careers'), href: localizePath('/carreras', lang) },
+  { label: t('nav.cases'), href: localizePath('/casos-de-exito', lang) },
+];
+---
+<header class="sx-nav">
+  <div class="container sx-nav__inner">
+    <a href={localizePath('/', lang)} class="sx-nav__brand">
+      <img src={mark.src} alt="" width="31" height="28" />
+      <span>Synthetix<b>AI</b></span>
+    </a>
+
+    <nav class="sx-nav__links" aria-label="Principal">
+      {nav.map((item) => (
+        <div class="sx-nav__item">
+          <a href={item.href}>{item.label}</a>
+          {item.children && (
+            <div class="sx-nav__dropdown">
+              {item.children.map((child) => (
+                <a href={child.href}>{child.label}</a>
+              ))}
+            </div>
+          )}
+        </div>
+      ))}
+    </nav>
+
+    <div class="sx-nav__actions">
+      <div class="sx-lang" role="group" aria-label="Idioma / Language">
+        {(Object.keys(languages) as Lang[]).map((l) => (
+          <a
+            href={switchLangPath(currentPath, l)}
+            class:list={['sx-lang__btn', { 'is-active': l === lang }]}
+            aria-current={l === lang ? 'true' : undefined}
+          >{languages[l]}</a>
+        ))}
+      </div>
+      <Button href={localizePath('/contacto', lang)} size="sm" class="sx-nav__cta">{t('nav.cta')}</Button>
+      <button class="sx-nav__burger" aria-label="Abrir menú" id="sx-burger">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+
+  <div class="sx-nav__mobile" id="sx-mobile-menu">
+    {nav.map((item) => (
+      <div class="sx-nav__mobile-item">
+        <a href={item.href}>{item.label}</a>
+      </div>
+    ))}
+    <Button href={localizePath('/contacto', lang)} class="sx-nav__mobile-cta">{t('nav.cta')}</Button>
+  </div>
+</header>
+
+<script>
+  const burger = document.getElementById('sx-burger');
+  const menu = document.getElementById('sx-mobile-menu');
+  burger?.addEventListener('click', () => {
+    menu?.classList.toggle('is-open');
+    burger.classList.toggle('is-open');
+  });
+</script>
+
+<style>
+  .sx-nav {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: rgba(15, 23, 42, 0.85);
+    backdrop-filter: blur(10px);
+    /* box-shadow instead of border-bottom: a solid border on a blurred,
+       sticky element renders as a bright seam in Chrome (the blur samples
+       across the border edge inconsistently). box-shadow isn't affected. */
+    box-shadow: 0 1px 0 var(--sx-slate-800);
+  }
+  .sx-nav__inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: var(--sx-space-4);
+    padding-bottom: var(--sx-space-4);
+  }
+  .sx-nav__brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: 18px;
+    color: #fff;
+  }
+  .sx-nav__brand b { color: var(--sx-tech-cyan); }
+
+  .sx-nav__links {
+    display: none;
+    gap: var(--sx-space-6);
+  }
+  .sx-nav__item { position: relative; padding: var(--sx-space-2) 0; }
+  .sx-nav__item > a {
+    font-size: var(--fs-sm);
+    font-weight: 600;
+    color: var(--sx-slate-200);
+    transition: color var(--sx-duration-fast) var(--sx-ease-standard);
+  }
+  .sx-nav__item:hover > a { color: var(--sx-tech-cyan); }
+
+  .sx-nav__dropdown {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    min-width: 220px;
+    background: var(--sx-slate-800);
+    border: 1px solid var(--sx-slate-700);
+    border-radius: var(--sx-radius-lg);
+    padding: var(--sx-space-2);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(6px);
+    transition: all var(--sx-duration-base) var(--sx-ease-standard);
+    box-shadow: var(--sx-shadow-md);
+  }
+  .sx-nav__item:hover .sx-nav__dropdown {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+  }
+  .sx-nav__dropdown a {
+    display: block;
+    padding: var(--sx-space-2) var(--sx-space-3);
+    font-size: var(--fs-sm);
+    border-radius: var(--sx-radius-md);
+    color: var(--sx-slate-200);
+  }
+  .sx-nav__dropdown a:hover { background: rgba(0,210,255,0.08); color: var(--sx-tech-cyan); }
+
+  .sx-nav__actions { display: flex; align-items: center; gap: var(--sx-space-4); }
+
+  .sx-lang {
+    display: flex;
+    align-items: center;
+    gap: 2px;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid var(--sx-slate-700);
+    border-radius: var(--sx-radius-pill);
+    padding: 3px;
+  }
+  .sx-lang__btn {
+    padding: 4px 10px;
+    border-radius: var(--sx-radius-pill);
+    font-size: var(--fs-xs);
+    font-weight: 700;
+    color: var(--sx-slate-300);
+    transition: all var(--sx-duration-fast) var(--sx-ease-standard);
+  }
+  .sx-lang__btn:hover { color: var(--sx-tech-cyan); }
+  .sx-lang__btn.is-active {
+    background: var(--sx-electric-blue);
+    color: #fff;
+  }
+
+  .sx-nav__burger {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 8px;
+  }
+  .sx-nav__burger span {
+    width: 20px;
+    height: 2px;
+    background: #fff;
+    transition: transform var(--sx-duration-base) var(--sx-ease-standard), opacity var(--sx-duration-base);
+  }
+
+  .sx-nav__mobile {
+    display: none;
+    flex-direction: column;
+    padding: var(--sx-space-6);
+    background: var(--sx-slate-900);
+    border-top: 1px solid var(--sx-slate-800);
+  }
+  .sx-nav__mobile.is-open { display: flex; }
+  .sx-nav__mobile-item a {
+    display: block;
+    padding: var(--sx-space-3) 0;
+    font-weight: 600;
+    color: var(--sx-slate-100);
+    border-bottom: 1px solid var(--sx-slate-800);
+  }
+  .sx-nav__mobile-cta { margin-top: var(--sx-space-4); }
+
+  @media (min-width: 900px) {
+    .sx-nav__links { display: flex; }
+    .sx-nav__burger { display: none; }
+  }
+  /* Small phones: tighten header so brand + lang pill + burger fit */
+  @media (max-width: 560px) {
+    .sx-nav__inner { padding-left: var(--sx-space-4); padding-right: var(--sx-space-4); }
+    .sx-nav__brand { font-size: 16px; gap: var(--sx-space-2); }
+    .sx-nav__actions { gap: var(--sx-space-2); }
+  }
+  /* Below desktop the header CTA is redundant (the mobile menu has its own).
+     :global needed — the class lands on the child Button component's element. */
+  @media (max-width: 899px) {
+    .sx-nav__actions :global(.sx-nav__cta) { display: none; }
+  }
+</style>

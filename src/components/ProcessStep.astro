@@ -1,0 +1,60 @@
+---
+import Badge from './Badge.astro';
+
+interface Props {
+  phase: string;
+  title: string;
+  payment?: string;
+  isLast?: boolean;
+}
+const { phase, title, payment, isLast = false } = Astro.props;
+---
+<div class="sx-step" data-reveal>
+  <div class="sx-step__card">
+    <span class="eyebrow">{phase}</span>
+    <h4>{title}</h4>
+    {payment && <Badge tone="info">{payment}</Badge>}
+    <p><slot /></p>
+  </div>
+  {!isLast && (
+    <div class="sx-step__connector" aria-hidden="true">
+      <span class="sx-step__v">↓</span>
+      <span class="sx-step__h">→</span>
+    </div>
+  )}
+</div>
+
+<style>
+  .sx-step { display: flex; flex-direction: column; align-items: stretch; position: relative; }
+  .sx-step__card {
+    flex: 1;
+    background: var(--sx-slate-800);
+    border: 1px solid var(--sx-slate-700);
+    border-left: 3px solid var(--sx-tech-cyan);
+    border-radius: var(--sx-radius-lg);
+    padding: var(--sx-space-6);
+  }
+  .sx-step__card h4 { margin: var(--sx-space-2) 0; }
+  .sx-step__card p { font-size: var(--fs-sm); margin: var(--sx-space-3) 0 0; }
+  .sx-step__connector {
+    text-align: center;
+    color: var(--sx-tech-cyan);
+    font-size: 20px;
+    padding: var(--sx-space-2) 0;
+  }
+  .sx-step__h { display: none; }
+
+  /* Horizontal flow: connector floats centered in the grid gap (--step-gap, set by the parent grid) */
+  @media (min-width: 901px) {
+    .sx-step__connector {
+      position: absolute;
+      top: 50%;
+      right: 0;
+      padding: 0;
+      z-index: 1;
+      transform: translate(calc(50% + var(--step-gap, 0px) / 2), -50%);
+    }
+    .sx-step__v { display: none; }
+    .sx-step__h { display: inline; }
+  }
+</style>

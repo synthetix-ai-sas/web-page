@@ -1,0 +1,46 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Card from '../Card.astro';
+import Button from '../Button.astro';
+import { useTranslations, localizePath, type Lang, type UiKey } from '../../i18n/utils';
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+
+const roles: UiKey[] = ['car.role1.title', 'car.role2.title', 'car.role3.title'];
+---
+<Layout title={t('car.meta.title')} lang={lang}>
+  <section>
+    <div class="container">
+      <span class="eyebrow">{t('car.eyebrow')}</span>
+      <h1>{t('car.title')}</h1>
+      <p class="lead">{t('car.lead')}</p>
+    </div>
+  </section>
+
+  <section class="grain-surface">
+    <div class="container roles-list">
+      {roles.map((r) => (
+        <Card data-reveal>
+          <div class="role-row">
+            <div>
+              <h4>{t(r)}</h4>
+              <p class="role-meta">{t('car.location')} · {t('car.fulltime')}</p>
+            </div>
+            <Button href={localizePath('/contacto', lang)} variant="outline" size="sm">{t('car.apply')}</Button>
+          </div>
+        </Card>
+      ))}
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .lead { max-width: 560px; font-size: 18px; }
+  .roles-list { display: flex; flex-direction: column; gap: var(--sx-space-4); }
+  .role-row { display: flex; align-items: center; justify-content: space-between; gap: var(--sx-space-4); flex-wrap: wrap; }
+  .role-meta { font-size: var(--fs-sm); color: var(--sx-slate-400); margin: 0; }
+</style>

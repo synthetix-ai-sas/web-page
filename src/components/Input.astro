@@ -1,0 +1,41 @@
+---
+interface Props {
+  label: string;
+  name: string;
+  type?: string;
+  placeholder?: string;
+  textarea?: boolean;
+  required?: boolean;
+}
+const { label, name, type = 'text', placeholder = '', textarea = false, required = false } = Astro.props;
+---
+<label class="sx-field">
+  <span class="sx-field__label">{label}</span>
+  {textarea ? (
+    <textarea name={name} placeholder={placeholder} required={required} rows="5"></textarea>
+  ) : (
+    <input type={type} name={name} placeholder={placeholder} required={required} />
+  )}
+</label>
+
+<style>
+  .sx-field { display: flex; flex-direction: column; gap: var(--sx-space-2); margin-bottom: var(--sx-space-4); }
+  .sx-field__label { font-size: var(--fs-sm); font-weight: 600; color: var(--sx-slate-200); }
+  input, textarea {
+    font-family: var(--font-body);
+    font-size: var(--fs-body);
+    background: var(--sx-slate-900);
+    border: 1px solid var(--sx-slate-700);
+    border-radius: var(--sx-radius-md);
+    color: #fff;
+    padding: 12px 14px;
+    transition: border-color var(--sx-duration-base) var(--sx-ease-standard),
+                box-shadow var(--sx-duration-base) var(--sx-ease-standard);
+  }
+  input::placeholder, textarea::placeholder { color: var(--sx-slate-500); }
+  input:focus, textarea:focus {
+    outline: none;
+    border-color: var(--sx-tech-cyan);
+    box-shadow: var(--sx-glow-cyan);
+  }
+</style>

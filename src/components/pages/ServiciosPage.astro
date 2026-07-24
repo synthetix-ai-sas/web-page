@@ -1,0 +1,92 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Button from '../Button.astro';
+import ProcessStep from '../ProcessStep.astro';
+import { useTranslations, localizePath, type Lang, type UiKey } from '../../i18n/utils';
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+
+const services: { id: string; title: UiKey; lead: UiKey; phases: { phase: UiKey; title: UiKey; payment: UiKey; body: UiKey }[] }[] = [
+  {
+    id: 'desarrollo',
+    title: 'sv.dev.title',
+    lead: 'sv.dev.lead',
+    phases: [
+      { phase: 'common.phase1', title: 'sv.dev.p1.title', payment: 'pay.weekly', body: 'sv.dev.p1.body' },
+      { phase: 'common.phase2', title: 'sv.dev.p2.title', payment: 'pay.fixed', body: 'sv.dev.p2.body' },
+      { phase: 'common.phase3', title: 'sv.dev.p3.title', payment: 'pay.monthly', body: 'sv.dev.p3.body' },
+    ],
+  },
+  {
+    id: 'agentes',
+    title: 'sv.agents.title',
+    lead: 'sv.agents.lead',
+    phases: [
+      { phase: 'common.phase1', title: 'sv.agents.p1.title', payment: 'pay.weekly', body: 'sv.agents.p1.body' },
+      { phase: 'common.phase2', title: 'sv.agents.p2.title', payment: 'pay.monthly', body: 'sv.agents.p2.body' },
+      { phase: 'common.phase3', title: 'sv.agents.p3.title', payment: 'pay.monthly', body: 'sv.agents.p3.body' },
+    ],
+  },
+  {
+    id: 'vibe-to-production',
+    title: 'sv.vibe.title',
+    lead: 'sv.vibe.lead',
+    phases: [
+      { phase: 'common.phase1', title: 'sv.vibe.p1.title', payment: 'pay.weekly', body: 'sv.vibe.p1.body' },
+      { phase: 'common.phase2', title: 'sv.vibe.p2.title', payment: 'pay.fixed', body: 'sv.vibe.p2.body' },
+      { phase: 'common.phase3', title: 'sv.vibe.p3.title', payment: 'pay.monthly', body: 'sv.vibe.p3.body' },
+    ],
+  },
+];
+---
+<Layout title={t('sv.meta.title')} lang={lang}>
+  <section>
+    <div class="container">
+      <span class="eyebrow">{t('sv.eyebrow')}</span>
+      <h1>{t('sv.title')}</h1>
+      <p class="lead">{t('sv.lead')}</p>
+    </div>
+  </section>
+
+  {services.map((s) => (
+    <section id={s.id} class="grain-surface">
+      <div class="container">
+        <div class="section-head" data-reveal>
+          <h2>{t(s.title)}</h2>
+          <p>{t(s.lead)}</p>
+        </div>
+        <div class="phase-grid">
+          {s.phases.map((p, i) => (
+            <ProcessStep phase={t(p.phase)} title={t(p.title)} payment={t(p.payment)} isLast={i === s.phases.length - 1}>
+              {t(p.body)}
+            </ProcessStep>
+          ))}
+        </div>
+        <Button href={localizePath('/contacto', lang)} variant="outline">{t('nav.cta')}</Button>
+      </div>
+    </section>
+  ))}
+</Layout>
+
+<style>
+  .lead { max-width: 560px; font-size: 18px; }
+  .phase-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0;
+    max-width: 640px;
+    margin-bottom: var(--sx-space-8);
+  }
+  @media (min-width: 901px) {
+    .phase-grid {
+      grid-template-columns: repeat(3, 1fr);
+      gap: var(--sx-space-6);
+      max-width: none;
+      --step-gap: var(--sx-space-6);
+    }
+  }
+</style>

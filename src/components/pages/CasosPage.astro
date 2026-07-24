@@ -1,0 +1,53 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Card from '../Card.astro';
+import Badge from '../Badge.astro';
+import { useTranslations, type Lang, type UiKey } from '../../i18n/utils';
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+
+const cases: { industry: UiKey; title: UiKey; tags: string[] }[] = [
+  { industry: 'ind.salud', title: 'cases.1.title', tags: ['Python', 'FastAPI', 'LangGraph'] },
+  { industry: 'ind.proptech', title: 'cases.2.title', tags: ['Next.js', 'Python', 'OpenAI'] },
+  { industry: 'ind.logistica', title: 'cases.3.title', tags: ['PHP', 'Google Cloud'] },
+  { industry: 'ind.suministro', title: 'cases.4.title', tags: ['React', 'Next.js', 'Nest.js'] },
+  { industry: 'ind.salud', title: 'cases.5.title', tags: ['Python', 'FastAPI', 'PostgreSQL'] },
+  { industry: 'ind.construccion', title: 'cases.6.title', tags: ['Perl', 'PostgreSQL'] },
+];
+---
+<Layout title={t('cases.meta.title')} lang={lang}>
+  <section>
+    <div class="container">
+      <span class="eyebrow">{t('cases.eyebrow')}</span>
+      <h1>{t('cases.title')}</h1>
+      <p class="lead">{t('cases.lead')}</p>
+    </div>
+  </section>
+
+  <section class="grain-surface">
+    <div class="container case-grid">
+      {cases.map((c) => (
+        <Card data-reveal>
+          <Badge tone="info">{t(c.industry)}</Badge>
+          <h3>{t(c.title)}</h3>
+          <div class="tags">
+            {c.tags.map((tag) => <span class="mono tag">{tag}</span>)}
+          </div>
+        </Card>
+      ))}
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .lead { max-width: 560px; font-size: 18px; }
+  .case-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--sx-space-6); }
+  .tags { display: flex; gap: var(--sx-space-2); flex-wrap: wrap; margin-top: var(--sx-space-4); }
+  .tag { font-size: var(--fs-xs); color: var(--sx-slate-400); border: 1px solid var(--sx-slate-700); border-radius: var(--sx-radius-pill); padding: 2px 10px; }
+  @media (max-width: 900px) { .case-grid { grid-template-columns: 1fr 1fr; } }
+  @media (max-width: 560px) { .case-grid { grid-template-columns: 1fr; } }
+</style>

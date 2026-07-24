@@ -1,0 +1,35 @@
+---
+interface Props {
+  tone?: 'info' | 'success' | 'warning' | 'danger' | 'brand';
+  class?: string;
+}
+const { tone = 'brand', class: className = '' } = Astro.props;
+---
+<span class:list={['sx-badge', `sx-badge--${tone}`, className]}><slot /></span>
+
+<style>
+  .sx-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-family: var(--font-mono);
+    font-size: var(--fs-xs);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    border-radius: var(--sx-radius-pill);
+    font-weight: 600;
+  }
+  .sx-badge::before {
+    content: '';
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: currentColor;
+  }
+  .sx-badge--info { color: var(--sx-info); background: rgba(0, 210, 255, 0.12); }
+  .sx-badge--success { color: var(--sx-success); background: rgba(47, 190, 110, 0.12); }
+  .sx-badge--warning { color: var(--sx-warning); background: rgba(240, 169, 58, 0.12); }
+  .sx-badge--danger { color: var(--sx-danger); background: rgba(229, 83, 75, 0.12); }
+  .sx-badge--brand { color: #fff; background: var(--sx-electric-blue); }
+</style>

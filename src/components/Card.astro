@@ -1,0 +1,31 @@
+---
+interface Props {
+  glow?: boolean;
+  class?: string;
+}
+const { glow = false, class: className = '' } = Astro.props;
+---
+<div class:list={['sx-card', { 'sx-card--glow': glow }, className]}>
+  <slot />
+</div>
+
+<style>
+  .sx-card {
+    background: var(--sx-slate-800);
+    border: 1px solid var(--sx-slate-700);
+    border-radius: var(--sx-radius-lg);
+    padding: var(--sx-space-8);
+    transition: border-color var(--sx-duration-base) var(--sx-ease-standard),
+                transform var(--sx-duration-base) var(--sx-ease-standard),
+                box-shadow var(--sx-duration-base) var(--sx-ease-standard);
+  }
+  .sx-card:hover {
+    border-color: var(--sx-electric-blue);
+    transform: translateY(-2px);
+  }
+  .sx-card--glow:hover {
+    box-shadow: var(--sx-glow-blue);
+  }
+  .sx-card :global(h3), .sx-card :global(h4) { color: #fff; }
+  .sx-card :global(p:last-child) { margin-bottom: 0; }
+</style>

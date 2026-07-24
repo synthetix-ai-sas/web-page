@@ -1,0 +1,87 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Card from '../Card.astro';
+import { useTranslations, type Lang, type UiKey } from '../../i18n/utils';
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+
+const steps: { title: UiKey; body: UiKey }[] = [
+  { title: 'about.how.1.title', body: 'about.how.1.body' },
+  { title: 'about.how.2.title', body: 'about.how.2.body' },
+  { title: 'about.how.3.title', body: 'about.how.3.body' },
+];
+
+const faqs: { q: UiKey; a: UiKey }[] = [
+  { q: 'about.faq.1.q', a: 'about.faq.1.a' },
+  { q: 'about.faq.2.q', a: 'about.faq.2.a' },
+  { q: 'about.faq.3.q', a: 'about.faq.3.a' },
+  { q: 'about.faq.4.q', a: 'about.faq.4.a' },
+];
+---
+<Layout title={t('about.meta.title')} lang={lang}>
+  <section>
+    <div class="container">
+      <span class="eyebrow">{t('about.eyebrow')}</span>
+      <h1>{t('about.title')}</h1>
+      <p class="lead">{t('about.lead')}</p>
+    </div>
+  </section>
+
+  <section id="como-trabajamos" class="grain-surface">
+    <div class="container">
+      <div class="section-head" data-reveal>
+        <span class="eyebrow">{t('about.how.eyebrow')}</span>
+        <h2>{t('about.how.title')}</h2>
+        <p>{t('about.how.lead')}</p>
+      </div>
+      <div class="grid-3">
+        {steps.map((s) => (
+          <Card data-reveal><h4>{t(s.title)}</h4><p>{t(s.body)}</p></Card>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section id="faq">
+    <div class="container">
+      <div class="section-head" data-reveal>
+        <span class="eyebrow">{t('about.faq.eyebrow')}</span>
+        <h2>{t('about.faq.title')}</h2>
+      </div>
+      <div class="faq-list">
+        {faqs.map((f) => (
+          <details class="faq-item" data-reveal>
+            <summary>{t(f.q)}</summary>
+            <p>{t(f.a)}</p>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .lead { max-width: 560px; font-size: 18px; }
+  .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--sx-space-6); }
+  .faq-list { max-width: 720px; }
+  .faq-item {
+    border-bottom: 1px solid var(--sx-slate-700);
+    padding: var(--sx-space-4) 0;
+  }
+  .faq-item summary {
+    cursor: pointer;
+    font-weight: 600;
+    color: #fff;
+    font-family: var(--font-display);
+    list-style: none;
+  }
+  .faq-item summary::-webkit-details-marker { display: none; }
+  .faq-item summary::after { content: '+'; float: right; color: var(--sx-tech-cyan); }
+  .faq-item[open] summary::after { content: '−'; }
+  .faq-item p { margin-top: var(--sx-space-3); font-size: var(--fs-sm); }
+  @media (max-width: 900px) { .grid-3 { grid-template-columns: 1fr; } }
+</style>
