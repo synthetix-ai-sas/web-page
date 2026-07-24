@@ -28,3 +28,8 @@ pnpm-debug.log*
 
 # Claude Code local settings (machine-specific permissions)
 .claude/settings.local.json
+
+# docs/ holds private source material (legal docs, brand brief, design PDFs) —
+# only docs/superpowers (specs/plans/handoffs) is meant to be version-controlled
+docs/*
+!docs/superpowers/
