@@ -231,11 +231,13 @@ const whyUs = [1, 2, 3, 4, 5, 6] as const;
   .cta-final__rule { width: 72px; margin: 0 auto var(--sx-space-6); }
 
   @media (max-width: 900px) {
-    .hero__stats { grid-template-columns: 1fr; }
+    .hero__stats { grid-template-columns: 1fr 1fr; }
+    .hero__stats > :last-child { grid-column: 1 / -1; }
     .paths-grid { grid-template-columns: 1fr; }
     .why-grid { grid-template-columns: 1fr 1fr; }
   }
   @media (max-width: 560px) {
+    .hero__stats { grid-template-columns: 1fr; }
     .why-grid { grid-template-columns: 1fr; }
   }
 </style>

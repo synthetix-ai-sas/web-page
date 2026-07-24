@@ -83,5 +83,11 @@ const faqs: { q: UiKey; a: UiKey }[] = [
   .faq-item summary::after { content: '+'; float: right; color: var(--sx-tech-cyan); }
   .faq-item[open] summary::after { content: '−'; }
   .faq-item p { margin-top: var(--sx-space-3); font-size: var(--fs-sm); }
-  @media (max-width: 900px) { .grid-3 { grid-template-columns: 1fr; } }
+  @media (max-width: 900px) {
+    .grid-3 { grid-template-columns: 1fr 1fr; }
+    .grid-3 > :last-child { grid-column: 1 / -1; }
+  }
+  @media (max-width: 560px) {
+    .grid-3 { grid-template-columns: 1fr; }
+  }
 </style>
