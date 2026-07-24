@@ -72,6 +72,24 @@ const ogLocale = { es: 'es_ES', en: 'en_US' } as const satisfies Record<Lang, st
       }
       document.addEventListener('astro:page-load', initReveal);
     </script>
+
+    <script>
+      // Silent redirect: if the visitor has no stored language preference and
+      // their browser reports English, send them to the /en equivalent of the
+      // current page. Never overrides an explicit choice (see Navbar.astro).
+      import { getStoredLang, browserLang } from '../i18n/detect';
+      import { switchLangPath } from '../i18n/utils';
+
+      function autoDetectLanguage() {
+        const path = window.location.pathname;
+        if (path.startsWith('/en')) return;
+        if (getStoredLang()) return;
+        if (browserLang() === 'en') {
+          window.location.replace(switchLangPath(path, 'en'));
+        }
+      }
+      document.addEventListener('astro:page-load', autoDetectLanguage);
+    </script>
   </body>
 </html>
 
