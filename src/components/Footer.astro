@@ -52,7 +52,7 @@ const year = new Date().getFullYear();
   <div class="container sx-footer__legal">
     <span>© {year} {t('footer.rights')}</span>
     <div class="sx-footer__legal-links">
-      <a href="#">{t('footer.privacy')}</a>
+      <a href={localizePath('/privacidad', lang)}>{t('footer.privacy')}</a>
       <a href="#">{t('footer.terms')}</a>
     </div>
   </div>

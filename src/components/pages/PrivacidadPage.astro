@@ -1,0 +1,44 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { useTranslations, type Lang, type UiKey } from '../../i18n/utils';
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+
+const sections: { title: UiKey; body: UiKey }[] = [
+  { title: 'legal.privacy.s1.title', body: 'legal.privacy.s1.body' },
+  { title: 'legal.privacy.s2.title', body: 'legal.privacy.s2.body' },
+  { title: 'legal.privacy.s3.title', body: 'legal.privacy.s3.body' },
+  { title: 'legal.privacy.s4.title', body: 'legal.privacy.s4.body' },
+  { title: 'legal.privacy.s5.title', body: 'legal.privacy.s5.body' },
+  { title: 'legal.privacy.s6.title', body: 'legal.privacy.s6.body' },
+  { title: 'legal.privacy.s7.title', body: 'legal.privacy.s7.body' },
+];
+---
+<Layout title={t('legal.privacy.meta.title')} lang={lang}>
+  <section>
+    <div class="container legal-doc">
+      <span class="eyebrow">{t('legal.privacy.eyebrow')}</span>
+      <h1>{t('legal.privacy.title')}</h1>
+      <p class="legal-updated">{t('legal.privacy.updated')}</p>
+      <p class="legal-intro">{t('legal.privacy.intro')}</p>
+      {sections.map((s) => (
+        <div class="legal-section">
+          <h2>{t(s.title)}</h2>
+          <p>{t(s.body)}</p>
+        </div>
+      ))}
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .legal-doc { max-width: 720px; padding: var(--sx-space-24) 0; }
+  .legal-updated { color: var(--sx-slate-500); font-size: var(--fs-sm); margin-bottom: var(--sx-space-6); }
+  .legal-intro { font-size: 18px; margin-bottom: var(--sx-space-8); }
+  .legal-section { margin-top: var(--sx-space-8); }
+  .legal-section h2 { font-size: var(--fs-h2); margin-bottom: var(--sx-space-3); }
+</style>
