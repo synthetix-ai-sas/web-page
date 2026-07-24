@@ -69,6 +69,7 @@ const nav = [
         {(Object.keys(languages) as Lang[]).map((l) => (
           <a
             href={switchLangPath(currentPath, l)}
+            data-lang={l}
             class:list={['sx-lang__btn', { 'is-active': l === lang }]}
             aria-current={l === lang ? 'true' : undefined}
           >{languages[l]}</a>
@@ -98,6 +99,23 @@ const nav = [
     menu?.classList.toggle('is-open');
     burger.classList.toggle('is-open');
   });
+</script>
+
+<script>
+  // Persist an explicit language choice so Layout's auto-redirect never
+  // overrides a deliberate click on the ES/EN switcher.
+  import { setStoredLang } from '../i18n/detect';
+  import type { Lang } from '../i18n/utils';
+
+  function initLangSwitcher() {
+    document.querySelectorAll<HTMLAnchorElement>('.sx-lang__btn').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const chosen = btn.dataset.lang;
+        if (chosen === 'es' || chosen === 'en') setStoredLang(chosen as Lang);
+      });
+    });
+  }
+  document.addEventListener('astro:page-load', initLangSwitcher);
 </script>
 
 <style>
