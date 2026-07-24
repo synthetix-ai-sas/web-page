@@ -21,6 +21,15 @@ const Tag = href ? 'a' : 'button';
     align-items: center;
     justify-content: center;
     gap: var(--sx-space-2);
+    /* Reset native <button> chrome — this component renders as <button>
+       when no href is given (see Tag above), and the browser's UA
+       stylesheet otherwise leaves its default border/background showing
+       through under the variant styles below. Harmless no-op when Tag
+       is <a>, which has no such chrome to begin with. */
+    border: none;
+    appearance: none;
+    -webkit-appearance: none;
+    text-decoration: none;
     font-family: var(--font-body);
     font-weight: 600;
     font-size: var(--fs-sm);
