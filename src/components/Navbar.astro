@@ -93,12 +93,18 @@ const nav = [
 </header>
 
 <script>
-  const burger = document.getElementById('sx-burger');
-  const menu = document.getElementById('sx-mobile-menu');
-  burger?.addEventListener('click', () => {
-    menu?.classList.toggle('is-open');
-    burger.classList.toggle('is-open');
-  });
+  // Re-init on every client-side navigation: the Navbar isn't
+  // transition:persist-ed, so ClientRouter replaces this DOM (and any
+  // listener attached to it) on each page swap — see initLangSwitcher below.
+  function initBurgerMenu() {
+    const burger = document.getElementById('sx-burger');
+    const menu = document.getElementById('sx-mobile-menu');
+    burger?.addEventListener('click', () => {
+      menu?.classList.toggle('is-open');
+      burger.classList.toggle('is-open');
+    });
+  }
+  document.addEventListener('astro:page-load', initBurgerMenu);
 </script>
 
 <script>
