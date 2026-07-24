@@ -1,0 +1,44 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Button from '../components/Button.astro';
+import { useTranslations } from '../i18n/utils';
+
+const tEs = useTranslations('es');
+const tEn = useTranslations('en');
+---
+<Layout title={tEs('404.title')} lang="es">
+  <section class="not-found grain-surface">
+    <div class="container">
+      <div data-lang-block="es">
+        <span class="eyebrow">{tEs('404.eyebrow')}</span>
+        <h1>{tEs('404.title')}</h1>
+        <p class="lead">{tEs('404.lead')}</p>
+        <Button href="/">{tEs('404.cta')}</Button>
+      </div>
+      <div data-lang-block="en" hidden>
+        <span class="eyebrow">{tEn('404.eyebrow')}</span>
+        <h1>{tEn('404.title')}</h1>
+        <p class="lead">{tEn('404.lead')}</p>
+        <Button href="/en/">{tEn('404.cta')}</Button>
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<script>
+  // The site is fully static, so the deployed 404.html is served for any
+  // unmatched path under either /  or /en — this script picks which
+  // language block to show based on the actual URL the visitor hit.
+  import { resolveDisplayLang } from '../i18n/detect';
+
+  const lang = resolveDisplayLang();
+  document.documentElement.lang = lang;
+  document.querySelector('[data-lang-block="es"]')?.toggleAttribute('hidden', lang !== 'es');
+  document.querySelector('[data-lang-block="en"]')?.toggleAttribute('hidden', lang !== 'en');
+</script>
+
+<style>
+  .not-found { padding-top: var(--sx-space-24); padding-bottom: var(--sx-space-24); text-align: center; }
+  .not-found .container { max-width: 480px; }
+  .not-found .lead { margin: var(--sx-space-4) 0 var(--sx-space-8); }
+</style>

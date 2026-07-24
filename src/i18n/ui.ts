@@ -220,6 +220,12 @@ export const ui = {
     'contact.form.company': 'Empresa',
     'contact.form.message': 'Cuéntanos sobre tu proyecto',
     'contact.form.submit': 'Enviar mensaje',
+
+    // ---- 404 ----
+    '404.eyebrow': 'Error 404',
+    '404.title': 'Página no encontrada',
+    '404.lead': 'La página que buscas no existe o fue movida.',
+    '404.cta': 'Volver al inicio',
   },
 
   en: {
@@ -434,6 +440,12 @@ export const ui = {
     'contact.form.company': 'Company',
     'contact.form.message': 'Tell us about your project',
     'contact.form.submit': 'Send message',
+
+    // ---- 404 ----
+    '404.eyebrow': '404 Error',
+    '404.title': 'Page not found',
+    '404.lead': "The page you're looking for doesn't exist or has moved.",
+    '404.cta': 'Back to home',
   },
 } as const;
 
