@@ -13,7 +13,7 @@ const { lang } = Astro.props;
 const t = useTranslations(lang);
 const mapSrc = `https://maps.google.com/maps?q=${encodeURIComponent(t('contact.office.value'))}&z=15&output=embed`;
 ---
-<Layout title={t('contact.meta.title')} lang={lang}>
+<Layout title={t('contact.meta.title')} description={t('contact.meta.description')} lang={lang}>
   <section class="grain-surface">
     <MeshBackground />
     <div class="container contact-grid">
