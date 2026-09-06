@@ -38,3 +38,6 @@ docs/*
 # brand assets and scratch screenshots — not meant to be version-controlled
 Identidad Visual/
 screens/
+
+# local git worktrees for isolated subagent work
+.worktrees/
