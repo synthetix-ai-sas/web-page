@@ -5,9 +5,7 @@ import vercel from '@astrojs/vercel';
 
 // https://astro.build/config
 export default defineConfig({
-  // Placeholder domain — swap for the real production domain once it's chosen.
-  // Required so hreflang/canonical/og:url tags can resolve absolute URLs.
-  site: 'https://synthetix.ai',
+  site: 'https://www.synthetixaisas.com',
 
   adapter: vercel(),
 });
