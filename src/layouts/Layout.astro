@@ -4,6 +4,7 @@ import '../styles/global.css';
 import Navbar from '../components/Navbar.astro';
 import Footer from '../components/Footer.astro';
 import { useTranslations, switchLangPath, type Lang } from '../i18n/utils';
+import logoLockup from '../assets/logo-lockup.png';
 
 interface Props {
   title: string;
@@ -19,6 +20,9 @@ const esHref = new URL(switchLangPath(currentPath, 'es'), Astro.site).toString()
 const enHref = new URL(switchLangPath(currentPath, 'en'), Astro.site).toString();
 const canonicalHref = lang === 'es' ? esHref : enHref;
 const ogLocale = { es: 'es_ES', en: 'en_US' } as const satisfies Record<Lang, string>;
+
+const fullTitle = `${title} — Synthetix AI`;
+const ogImageHref = new URL(logoLockup.src, Astro.site).toString();
 ---
 <!doctype html>
 <html lang={lang}>
@@ -26,7 +30,7 @@ const ogLocale = { es: 'es_ES', en: 'en_US' } as const satisfies Record<Lang, st
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content={description} />
-    <title>{title} — Synthetix AI</title>
+    <title>{fullTitle}</title>
 
     <link rel="canonical" href={canonicalHref} />
     <link rel="alternate" hreflang="es" href={esHref} />
@@ -34,6 +38,18 @@ const ogLocale = { es: 'es_ES', en: 'en_US' } as const satisfies Record<Lang, st
     <link rel="alternate" hreflang="x-default" href={esHref} />
     <meta property="og:locale" content={ogLocale[lang]} />
     <meta property="og:locale:alternate" content={ogLocale[lang === 'es' ? 'en' : 'es']} />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Synthetix AI" />
+    <meta property="og:title" content={fullTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonicalHref} />
+    <meta property="og:image" content={ogImageHref} />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={fullTitle} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImageHref} />
 
     <!-- Design-system type families: Montserrat (display), Poppins (body/UI), JetBrains Mono (code/data) -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
