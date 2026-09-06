@@ -23,6 +23,25 @@ const ogLocale = { es: 'es_ES', en: 'en_US' } as const satisfies Record<Lang, st
 
 const fullTitle = `${title} — Synthetix AI`;
 const ogImageHref = new URL(logoLockup.src, Astro.site).toString();
+
+const organizationJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Organization',
+  name: 'Synthetix AI',
+  legalName: 'Synthetix AI S.A.S.',
+  taxID: '902069229-9',
+  url: 'https://www.synthetixaisas.com',
+  logo: ogImageHref,
+  email: 'contact@synthetixaisas.com',
+  telephone: '+57 314 806 7436',
+  address: {
+    '@type': 'PostalAddress',
+    streetAddress: 'Cra 21B # 55-25',
+    addressLocality: 'Manizales',
+    addressRegion: 'Caldas',
+    addressCountry: 'CO',
+  },
+};
 ---
 <!doctype html>
 <html lang={lang}>
@@ -60,6 +79,7 @@ const ogImageHref = new URL(logoLockup.src, Astro.site).toString();
     />
 
     <ClientRouter />
+    <script type="application/ld+json" set:html={JSON.stringify(organizationJsonLd)} />
   </head>
   <body>
     <Navbar lang={lang} />
