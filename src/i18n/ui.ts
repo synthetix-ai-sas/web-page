@@ -56,6 +56,7 @@ export const ui = {
 
     // ---- Home ----
     'home.meta.title': 'Desarrollo de Sistemas de IA',
+    'home.meta.description': 'Desarrollamos software y soluciones de inteligencia artificial para empresas — de la idea a un sistema que funciona, explicado en lenguaje simple.',
     'home.hero.eyebrow': 'Arquitectura de Sistemas Liderada por Humanos, Potenciada por IA',
     'home.hero.title': 'Impulsamos el futuro',
     'home.hero.titleHighlight': 'con inteligencia artificial.',
@@ -121,6 +122,7 @@ export const ui = {
 
     // ---- Servicios ----
     'sv.meta.title': 'Servicios',
+    'sv.meta.description': 'Software a la medida, automatización con inteligencia artificial y equipos dedicados para tu empresa — servicios claros, sin tecnicismos innecesarios.',
     'sv.eyebrow': 'Servicios',
     'sv.title': 'Arquitectura de sistemas para cada etapa',
     'sv.lead': 'Desde la definición de producto hasta equipos dedicados, nos adaptamos a donde estés.',
@@ -151,6 +153,7 @@ export const ui = {
 
     // ---- Industrias ----
     'ind.meta.title': 'Industrias',
+    'ind.meta.description': 'Soluciones de software e inteligencia artificial para salud, finanzas, logística, construcción y más — adaptadas a los retos reales de cada sector.',
     'ind.page.eyebrow': 'Industrias',
     'ind.page.title': 'Arquitectura de IA para cada industria',
     'ind.page.lead': 'Llevamos flujos de trabajo nativos de IA y pipelines autónomos a cualquier sector — desde industrias reguladas hasta mercados de rápido movimiento.',
@@ -168,6 +171,7 @@ export const ui = {
 
     // ---- Nosotros ----
     'about.meta.title': 'Nosotros',
+    'about.meta.description': 'Conoce al equipo detrás de Synthetix AI: más de una década desarrollando software e inteligencia artificial para empresas, con un trato cercano y transparente.',
     'about.eyebrow': 'Nosotros',
     'about.title': 'Un equipo de arquitectura, potenciado por IA',
     'about.lead': 'Nearshore, con más de una década construyendo sistemas de IA para empresas en fintech, salud, logística y SaaS empresarial.',
@@ -193,6 +197,7 @@ export const ui = {
 
     // ---- Casos de Éxito ----
     'cases.meta.title': 'Casos de Éxito',
+    'cases.meta.description': 'Casos reales de software e inteligencia artificial que hemos construido para nuestros clientes — resultados concretos, no promesas genéricas.',
     'cases.eyebrow': 'Nuestro Trabajo',
     'cases.title': 'Sistemas reales, resultados reales',
     'cases.lead': 'Una muestra de la arquitectura de IA que hemos construido para nuestros clientes.',
@@ -211,6 +216,7 @@ export const ui = {
 
     // ---- Carreras ----
     'car.meta.title': 'Carreras',
+    'car.meta.description': 'Únete a Synthetix AI: buscamos ingenieros y arquitectos para construir software e inteligencia artificial junto a un equipo remoto en Colombia.',
     'car.eyebrow': 'Carreras',
     'car.title': 'Construye sistemas de IA con nosotros',
     'car.lead': 'Buscamos ingenieros y arquitectos que quieran definir cómo se construye software en la era de los agentes.',
@@ -223,6 +229,7 @@ export const ui = {
 
     // ---- Contacto ----
     'contact.meta.title': 'Contacto',
+    'contact.meta.description': 'Cuéntanos qué necesita tu empresa — un ingeniero de Synthetix AI te responde en menos de 24 horas para hablar de tu proyecto.',
     'contact.eyebrow': 'Contacto',
     'contact.title': 'Hablemos de tu sistema',
     'contact.lead': 'Cuéntanos qué estás construyendo — un ingeniero te responde en menos de 24 horas.',
@@ -250,6 +257,7 @@ export const ui = {
 
     // ---- Legal: Privacidad ----
     'legal.privacy.meta.title': 'Política de Privacidad',
+    'legal.privacy.meta.description': 'Política de privacidad de Synthetix AI S.A.S.: cómo recolectamos, usamos y protegemos tus datos personales, conforme a la ley colombiana.',
     'legal.privacy.eyebrow': 'Legal',
     'legal.privacy.title': 'Política de Privacidad',
     'legal.privacy.updated': 'Última actualización: 23 de julio de 2026',
@@ -271,6 +279,7 @@ export const ui = {
 
     // ---- Legal: Términos ----
     'legal.terms.meta.title': 'Términos de Servicio',
+    'legal.terms.meta.description': 'Términos de servicio de Synthetix AI S.A.S.: condiciones de uso de este sitio web y de la información sobre nuestros servicios.',
     'legal.terms.eyebrow': 'Legal',
     'legal.terms.title': 'Términos de Servicio',
     'legal.terms.updated': 'Última actualización: 23 de julio de 2026',
@@ -347,6 +356,7 @@ export const ui = {
 
     // ---- Home ----
     'home.meta.title': 'AI Systems Development',
+    'home.meta.description': 'We build software and AI solutions for growing businesses — from idea to working system, explained in plain language, not jargon.',
     'home.hero.eyebrow': 'Human-Led, AI-Powered Systems Architecture',
     'home.hero.title': 'We drive the future',
     'home.hero.titleHighlight': 'with artificial intelligence.',
@@ -411,6 +421,7 @@ export const ui = {
 
     // ---- Services ----
     'sv.meta.title': 'Services',
+    'sv.meta.description': 'Custom software, AI automation, and dedicated teams for your business — clear services built around results, not technical buzzwords.',
     'sv.eyebrow': 'Services',
     'sv.title': 'Systems architecture for every stage',
     'sv.lead': 'From product definition to dedicated teams, we meet you where you are.',
@@ -441,6 +452,7 @@ export const ui = {
 
     // ---- Industries ----
     'ind.meta.title': 'Industries',
+    'ind.meta.description': "Software and AI solutions for healthcare, finance, logistics, construction, and more — tailored to each industry's real challenges.",
     'ind.page.eyebrow': 'Industries',
     'ind.page.title': 'AI architecture for every industry',
     'ind.page.lead': 'We bring AI-native workflows and autonomous pipelines to any sector — from regulated industries to fast-moving markets.',
@@ -458,6 +470,7 @@ export const ui = {
 
     // ---- About ----
     'about.meta.title': 'About Us',
+    'about.meta.description': 'Meet the team behind Synthetix AI: over a decade building software and AI for businesses, with a close, transparent way of working.',
     'about.eyebrow': 'About Us',
     'about.title': 'An architecture team, powered by AI',
     'about.lead': 'Nearshore, with over a decade building AI systems for companies in fintech, healthcare, logistics, and enterprise SaaS.',
@@ -483,6 +496,7 @@ export const ui = {
 
     // ---- Case Studies ----
     'cases.meta.title': 'Case Studies',
+    'cases.meta.description': "Real software and AI projects we've built for our clients — concrete results, not generic promises.",
     'cases.eyebrow': 'Our Work',
     'cases.title': 'Real systems, real results',
     'cases.lead': 'A sample of the AI architecture we have built for our clients.',
@@ -501,6 +515,7 @@ export const ui = {
 
     // ---- Careers ----
     'car.meta.title': 'Careers',
+    'car.meta.description': "Join Synthetix AI: we're hiring engineers and architects to build software and AI alongside a remote team based in Colombia.",
     'car.eyebrow': 'Careers',
     'car.title': 'Build AI systems with us',
     'car.lead': 'We’re looking for engineers and architects who want to define how software gets built in the age of agents.',
@@ -513,6 +528,7 @@ export const ui = {
 
     // ---- Contact ----
     'contact.meta.title': 'Contact',
+    'contact.meta.description': 'Tell us what your business needs — a Synthetix AI engineer replies within 24 hours to talk about your project.',
     'contact.eyebrow': 'Contact',
     'contact.title': 'Let’s talk about your system',
     'contact.lead': 'Tell us what you’re building — an engineer will get back to you within 24 hours.',
@@ -540,6 +556,7 @@ export const ui = {
 
     // ---- Legal: Privacy ----
     'legal.privacy.meta.title': 'Privacy Policy',
+    'legal.privacy.meta.description': 'Synthetix AI S.A.S. privacy policy: how we collect, use, and protect your personal data under Colombian law.',
     'legal.privacy.eyebrow': 'Legal',
     'legal.privacy.title': 'Privacy Policy',
     'legal.privacy.updated': 'Last updated: July 23, 2026',
@@ -561,6 +578,7 @@ export const ui = {
 
     // ---- Legal: Terms ----
     'legal.terms.meta.title': 'Terms of Service',
+    'legal.terms.meta.description': 'Synthetix AI S.A.S. terms of service: the conditions for using this website and the information about our services.',
     'legal.terms.eyebrow': 'Legal',
     'legal.terms.title': 'Terms of Service',
     'legal.terms.updated': 'Last updated: July 23, 2026',
