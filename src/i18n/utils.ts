@@ -13,7 +13,7 @@ export function useTranslations(lang: Lang) {
 /** Prefixes a root-relative path with the locale (default locale stays unprefixed). */
 export function localizePath(path: string, lang: Lang): string {
   if (lang === defaultLang) return path;
-  return `/${lang}${path === '/' ? '' : path}`;
+  return `/${lang}${path === '/' ? '/' : path}`;
 }
 
 /** Maps the current URL path to its equivalent in the target locale. */
