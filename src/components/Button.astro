@@ -47,6 +47,7 @@ const Tag = href ? 'a' : 'button';
   }
   .sx-btn:active { transform: translateY(1px); }
   .sx-btn:focus-visible { box-shadow: var(--sx-glow-cyan); }
+  .sx-btn:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
 
   .sx-btn--primary {
     background: var(--sx-gradient-cyan);

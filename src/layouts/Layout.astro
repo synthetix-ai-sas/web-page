@@ -35,11 +35,11 @@ const ogLocale = { es: 'es_ES', en: 'en_US' } as const satisfies Record<Lang, st
     <meta property="og:locale" content={ogLocale[lang]} />
     <meta property="og:locale:alternate" content={ogLocale[lang === 'es' ? 'en' : 'es']} />
 
-    <!-- Design-system type families: Montserrat (display), Inter (body/UI), JetBrains Mono (code/data) -->
+    <!-- Design-system type families: Montserrat (display), Poppins (body/UI), JetBrains Mono (code/data) -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;600&family=Montserrat:wght@800&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&family=JetBrains+Mono:wght@500;600&family=Montserrat:wght@800&display=swap"
       rel="stylesheet"
     />
 

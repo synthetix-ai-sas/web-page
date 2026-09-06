@@ -10,13 +10,13 @@ interface Props {
 const { lang } = Astro.props;
 const t = useTranslations(lang);
 
-const cases: { industry: UiKey; title: UiKey; tags: string[] }[] = [
-  { industry: 'ind.salud', title: 'cases.1.title', tags: ['Python', 'FastAPI', 'LangGraph'] },
-  { industry: 'ind.proptech', title: 'cases.2.title', tags: ['Next.js', 'Python', 'OpenAI'] },
-  { industry: 'ind.logistica', title: 'cases.3.title', tags: ['PHP', 'Google Cloud'] },
-  { industry: 'ind.suministro', title: 'cases.4.title', tags: ['React', 'Next.js', 'Nest.js'] },
-  { industry: 'ind.salud', title: 'cases.5.title', tags: ['Python', 'FastAPI', 'PostgreSQL'] },
-  { industry: 'ind.construccion', title: 'cases.6.title', tags: ['Perl', 'PostgreSQL'] },
+const cases: { industry: UiKey; title: UiKey; result: UiKey; tags: string[] }[] = [
+  { industry: 'ind.salud', title: 'cases.1.title', result: 'cases.1.result', tags: ['Python', 'FastAPI', 'LangGraph'] },
+  { industry: 'ind.proptech', title: 'cases.2.title', result: 'cases.2.result', tags: ['Next.js', 'Python', 'OpenAI'] },
+  { industry: 'ind.logistica', title: 'cases.3.title', result: 'cases.3.result', tags: ['PHP', 'Google Cloud'] },
+  { industry: 'ind.suministro', title: 'cases.4.title', result: 'cases.4.result', tags: ['React', 'Next.js', 'Nest.js'] },
+  { industry: 'ind.salud', title: 'cases.5.title', result: 'cases.5.result', tags: ['Python', 'FastAPI', 'PostgreSQL'] },
+  { industry: 'ind.construccion', title: 'cases.6.title', result: 'cases.6.result', tags: ['Perl', 'PostgreSQL'] },
 ];
 ---
 <Layout title={t('cases.meta.title')} lang={lang}>
@@ -34,6 +34,7 @@ const cases: { industry: UiKey; title: UiKey; tags: string[] }[] = [
         <Card data-reveal>
           <Badge tone="info">{t(c.industry)}</Badge>
           <h3>{t(c.title)}</h3>
+          <p class="case-result">{t(c.result)}</p>
           <div class="tags">
             {c.tags.map((tag) => <span class="mono tag">{tag}</span>)}
           </div>
@@ -45,6 +46,7 @@ const cases: { industry: UiKey; title: UiKey; tags: string[] }[] = [
 
 <style>
   .lead { max-width: 560px; font-size: 18px; }
+  .case-result { font-size: var(--fs-sm); color: var(--sx-slate-300); margin-top: var(--sx-space-2); }
   .case-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--sx-space-6); }
   .tags { display: flex; gap: var(--sx-space-2); flex-wrap: wrap; margin-top: var(--sx-space-4); }
   .tag { font-size: var(--fs-xs); color: var(--sx-slate-400); border: 1px solid var(--sx-slate-700); border-radius: var(--sx-radius-pill); padding: 2px 10px; }

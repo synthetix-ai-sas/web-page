@@ -5,7 +5,7 @@ import Badge from '../Badge.astro';
 import Card from '../Card.astro';
 import StatCard from '../StatCard.astro';
 import ProcessStep from '../ProcessStep.astro';
-import MeshBackground from '../MeshBackground.astro';
+import mark from '../../assets/logo-mark.png';
 import { useTranslations, localizePath, type Lang } from '../../i18n/utils';
 
 interface Props {
@@ -18,26 +18,80 @@ const industryKeys = ['salud', 'finanzas', 'logistica', 'construccion', 'proptec
 const stack = ['Python', 'TypeScript', 'React', 'AWS', 'PostgreSQL', 'OpenAI', 'Kubernetes', 'Docker'];
 
 const whyUs = [1, 2, 3, 4, 5, 6] as const;
+const heroFeatures = [1, 2, 3, 4] as const;
+const heroFeatureIcons = [
+  // AI Avanzada — chip
+  '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="7" y="7" width="10" height="10" rx="1.5"/><path d="M9 3v2M12 3v2M15 3v2M9 19v2M12 19v2M15 19v2M3 9h2M3 12h2M3 15h2M19 9h2M19 12h2M19 15h2"/></svg>',
+  // Desarrollo a medida — code
+  '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 8l-4 4 4 4M15 8l4 4-4 4"/></svg>',
+  // Innovación constante — lightbulb
+  '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18h6M10 21h4M12 3a6 6 0 0 0-3 11.2c.5.3.8.9.8 1.5v.3h4.4v-.3c0-.6.3-1.2.8-1.5A6 6 0 0 0 12 3Z"/></svg>',
+  // Soporte experto — headset
+  '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 13v-1a8 8 0 0 1 16 0v1"/><rect x="3" y="13" width="4" height="6" rx="1.5"/><rect x="17" y="13" width="4" height="6" rx="1.5"/><path d="M19 19v1a2 2 0 0 1-2 2h-3"/></svg>',
+];
 ---
 <Layout title={t('home.meta.title')} lang={lang}>
-  <!-- HERO -->
+  <!-- HERO (brand manual homepage reference) -->
   <section class="hero grain-surface">
-    <MeshBackground />
+    <svg class="hero__stars" viewBox="0 0 1200 500" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <circle cx="80" cy="120" r="3" fill="var(--sx-tech-cyan)" opacity="0.7" />
+      <circle cx="220" cy="380" r="2.5" fill="var(--sx-electric-blue)" opacity="0.6" />
+      <circle cx="360" cy="60" r="2" fill="var(--sx-tech-cyan)" opacity="0.5" />
+      <circle cx="520" cy="240" r="3" fill="var(--sx-electric-blue)" opacity="0.5" />
+      <circle cx="700" cy="80" r="2.5" fill="var(--sx-tech-cyan)" opacity="0.6" />
+      <circle cx="860" cy="340" r="2" fill="var(--sx-electric-blue)" opacity="0.5" />
+      <circle cx="980" cy="150" r="3" fill="var(--sx-tech-cyan)" opacity="0.7" />
+      <circle cx="1100" cy="400" r="2.5" fill="var(--sx-electric-blue)" opacity="0.5" />
+      <circle cx="150" cy="450" r="2" fill="var(--sx-tech-cyan)" opacity="0.4" />
+      <circle cx="1050" cy="60" r="2" fill="var(--sx-tech-cyan)" opacity="0.5" />
+    </svg>
     <div class="container hero__inner">
-      <span class="eyebrow">{t('home.hero.eyebrow')}</span>
-      <h1>{t('home.hero.title')}</h1>
-      <p class="hero__lead">{t('home.hero.lead')}</p>
+      <div class="hero__copy" data-reveal>
+        <span class="eyebrow">{t('home.hero.eyebrow')}</span>
+        <h1>{t('home.hero.title')} <span class="hero__highlight">{t('home.hero.titleHighlight')}</span></h1>
+        <p class="hero__lead">{t('home.hero.lead')}</p>
 
-      <div class="hero__stats">
-        <StatCard value="5x" label={t('home.hero.stat1.label')} sub={t('home.hero.stat1.sub')} />
-        <StatCard value="4x" label={t('home.hero.stat2.label')} sub={t('home.hero.stat2.sub')} />
-        <StatCard value="85%" label={t('home.hero.stat3.label')} sub={t('home.hero.stat3.sub')} />
+        <div class="hero__stats">
+          <StatCard value="5x" label={t('home.hero.stat1.label')} sub={t('home.hero.stat1.sub')} />
+          <StatCard value="4x" label={t('home.hero.stat2.label')} sub={t('home.hero.stat2.sub')} />
+          <StatCard value="85%" label={t('home.hero.stat3.label')} sub={t('home.hero.stat3.sub')} />
+        </div>
+
+        <div class="hero__cta">
+          <Button href={localizePath('/contacto', lang)}>{t('nav.cta')}</Button>
+          <Button href="#proceso" variant="outline">{t('home.hero.cta.secondary')}</Button>
+        </div>
       </div>
 
-      <div class="hero__cta">
-        <Button href={localizePath('/contacto', lang)}>{t('nav.cta')}</Button>
-        <Button href="#proceso" variant="outline">{t('home.hero.cta.secondary')}</Button>
+      <div class="hero__art" data-reveal aria-hidden="true">
+        <svg class="hero__flow" viewBox="0 0 700 500" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <path d="M 20 400 C 50 385, 70 415, 100 400 C 120 392, 140 408, 165 398
+                   L 230 405 L 320 415 L 420 405
+                   L 470 420 L 540 350 L 610 385 L 670 280"
+                fill="none" stroke="var(--sx-tech-cyan)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" opacity="0.55" />
+          <g opacity="0.85">
+            <circle cx="20" cy="400" r="3" fill="var(--sx-tech-cyan)" />
+            <circle cx="100" cy="400" r="3" fill="var(--sx-electric-blue)" />
+            <circle cx="470" cy="420" r="4" fill="var(--sx-electric-blue)" />
+            <circle cx="540" cy="350" r="4.5" fill="var(--sx-tech-cyan)" />
+            <circle cx="610" cy="385" r="4" fill="var(--sx-electric-blue)" />
+            <circle cx="670" cy="280" r="5.5" fill="var(--sx-tech-cyan)" />
+          </g>
+        </svg>
+        <img src={mark.src} alt="" width="322" height="301" class="hero__mark" />
       </div>
+    </div>
+
+    <div class="container hero__features" data-reveal>
+      {heroFeatures.map((n) => (
+        <div class="hero__feature">
+          <span class="hero__feature-icon" set:html={heroFeatureIcons[n - 1]} />
+          <div>
+            <h4>{t(`home.hero.feature${n}.title`)}</h4>
+            <p>{t(`home.hero.feature${n}.body`)}</p>
+          </div>
+        </div>
+      ))}
     </div>
   </section>
 
@@ -156,8 +210,16 @@ const whyUs = [1, 2, 3, 4, 5, 6] as const;
 
 <style>
   .hero { padding-top: var(--sx-space-24); overflow: hidden; }
-  .hero__inner { position: relative; z-index: 1; max-width: 780px; }
-  .hero__lead { font-size: 18px; max-width: 560px; }
+  .hero__inner {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--sx-space-16);
+    align-items: center;
+  }
+  .hero__highlight { color: var(--sx-tech-cyan); }
+  .hero__lead { font-size: 18px; max-width: 480px; }
   .hero__stats {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -165,6 +227,74 @@ const whyUs = [1, 2, 3, 4, 5, 6] as const;
     margin: var(--sx-space-8) 0;
   }
   .hero__cta { display: flex; gap: var(--sx-space-4); flex-wrap: wrap; }
+
+  .hero__stars {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+  }
+
+  .hero__art {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    max-width: 480px;
+    aspect-ratio: 7 / 5;
+    margin: 0 auto;
+  }
+  .hero__flow {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    pointer-events: none;
+  }
+  .hero__mark {
+    position: absolute;
+    z-index: 1;
+    top: 8%;
+    left: 30%;
+    width: 42%;
+    height: auto;
+    filter: drop-shadow(0 0 32px rgba(0, 210, 255, 0.35));
+  }
+
+  .hero__features {
+    position: relative;
+    z-index: 1;
+    margin-top: var(--sx-space-16);
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--sx-space-6);
+    padding-top: var(--sx-space-8);
+    border-top: 1px solid var(--sx-slate-800);
+  }
+  .hero__feature { display: flex; align-items: flex-start; gap: var(--sx-space-3); }
+  .hero__feature-icon {
+    flex-shrink: 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: var(--sx-radius-md);
+    border: 1px solid var(--sx-slate-700);
+    color: var(--sx-tech-cyan);
+  }
+  .hero__feature-icon :global(svg) { width: 20px; height: 20px; }
+  .hero__feature h4 { font-size: var(--fs-sm); margin-bottom: 2px; }
+  .hero__feature p { font-size: var(--fs-xs); color: var(--sx-slate-400); margin: 0; }
+
+  @media (max-width: 900px) {
+    .hero__inner { grid-template-columns: 1fr; gap: var(--sx-space-8); }
+    .hero__art { order: -1; max-width: 360px; }
+    .hero__features { grid-template-columns: 1fr 1fr; }
+  }
+  @media (max-width: 560px) {
+    .hero__features { grid-template-columns: 1fr; }
+  }
 
   .process-grid {
     display: grid;

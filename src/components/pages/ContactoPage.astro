@@ -46,17 +46,63 @@ const mapSrc = `https://maps.google.com/maps?q=${encodeURIComponent(t('contact.o
       </div>
 
       <Card data-reveal>
-        <form class="contact-form">
+        <form class="contact-form" id="contact-form">
           <Input label={t('contact.form.name')} name="name" required />
           <Input label={t('contact.form.email')} name="email" type="email" required />
           <Input label={t('contact.form.company')} name="company" />
           <Input label={t('contact.form.message')} name="message" textarea required />
+          <input type="text" name="website" class="hp-field" tabindex="-1" autocomplete="off" aria-hidden="true" />
           <Button type="submit">{t('contact.form.submit')}</Button>
+          <p class="contact-form__status" id="contact-form-status" role="status" aria-live="polite"></p>
         </form>
       </Card>
     </div>
   </section>
 </Layout>
+
+<script define:vars={{
+  sendingText: t('contact.form.sending'),
+  submitText: t('contact.form.submit'),
+  successText: t('contact.form.success'),
+  errorText: t('contact.form.error'),
+}}>
+  function initContactForm() {
+    const form = document.getElementById('contact-form');
+    const submitBtn = form instanceof HTMLFormElement ? form.querySelector('button') : null;
+    const status = document.getElementById('contact-form-status');
+    if (!(form instanceof HTMLFormElement) || !submitBtn || !status) return;
+
+    form.addEventListener('submit', async (event) => {
+      event.preventDefault();
+      const data = Object.fromEntries(new FormData(form).entries());
+
+      submitBtn.setAttribute('disabled', 'true');
+      submitBtn.textContent = sendingText;
+      status.textContent = '';
+      status.classList.remove('is-error', 'is-success');
+
+      try {
+        const res = await fetch('/api/contact', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(data),
+        });
+        if (!res.ok) throw new Error('request_failed');
+
+        status.textContent = successText;
+        status.classList.add('is-success');
+        form.reset();
+      } catch {
+        status.textContent = errorText;
+        status.classList.add('is-error');
+      } finally {
+        submitBtn.removeAttribute('disabled');
+        submitBtn.textContent = submitText;
+      }
+    });
+  }
+  document.addEventListener('astro:page-load', initContactForm);
+</script>
 
 <style>
   .lead { max-width: 480px; font-size: 18px; }
@@ -75,5 +121,9 @@ const mapSrc = `https://maps.google.com/maps?q=${encodeURIComponent(t('contact.o
   .office-map { margin-top: var(--sx-space-4); border-radius: var(--sx-radius-lg); overflow: hidden; }
   .office-map iframe { display: block; }
   .contact-form { display: flex; flex-direction: column; }
+  .hp-field { position: absolute; width: 1px; height: 1px; overflow: hidden; opacity: 0; pointer-events: none; }
+  .contact-form__status { margin-top: var(--sx-space-4); font-size: var(--fs-sm); min-height: 1.2em; }
+  .contact-form__status.is-success { color: var(--sx-tech-cyan); }
+  .contact-form__status.is-error { color: var(--sx-danger); }
   @media (max-width: 900px) { .contact-grid { grid-template-columns: 1fr; } }
 </style>

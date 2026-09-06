@@ -46,13 +46,30 @@
   --sx-warning: #F0A93A;
   --sx-danger: #E5534B;
 
+  /* ---------- Extended palette (brand manual reference) ---------- */
+  /* Azules institucionales (colores principales del manual) */
+  --sx-corporate-blue: #0A63B4;
+  --sx-innovation-blue: #0D7BCA;
+  --sx-digital-cyan: #0DA5D8;
+  --sx-bright-tech: #05CFF9;
+
+  /* Cian tecnológico (colores de apoyo). El manual reutiliza los nombres
+     "Electric Blue" y "Tech Cyan" aquí con valores distintos a los de
+     --sx-electric-blue/--sx-tech-cyan arriba — se preservan bajo nombres
+     propios para no chocar con los tokens ya usados en el sitio. */
+  --sx-deep-tech: #0A204A;
+  --sx-core-blue: #063687;
+  --sx-network-blue: #0076E0;
+  --sx-support-electric-blue: #014EC8;
+  --sx-support-tech-cyan: #00BBF7;
+
   /* ---------- Gradients ---------- */
   --sx-gradient-brand: linear-gradient(90deg, var(--sx-deep-shadow) 0%, var(--sx-electric-blue) 55%, #1AA9FF 100%);
   --sx-gradient-cyan: linear-gradient(90deg, var(--sx-electric-blue) 0%, var(--sx-tech-cyan) 100%);
 
   /* ---------- Typography ---------- */
   --font-display: 'Montserrat', 'Montserrat Fallback', sans-serif;
-  --font-body: 'Inter', 'Inter Fallback', sans-serif;
+  --font-body: 'Poppins', 'Poppins Fallback', sans-serif;
   --font-mono: 'JetBrains Mono', 'JetBrains Mono Fallback', monospace;
 
   --fs-display: 44px;
@@ -178,11 +195,10 @@ section {
 }
 
 .section-head {
-  max-width: 640px;
   margin-bottom: var(--sx-space-12);
 }
 
-.section-head p { color: var(--sx-slate-300); font-size: var(--fs-body); }
+.section-head p { max-width: 640px; color: var(--sx-slate-300); font-size: var(--fs-body); }
 
 /* Divider used between hero-style blocks, echoing the reference's blue rule */
 .divider {

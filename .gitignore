@@ -33,3 +33,8 @@ pnpm-debug.log*
 # only docs/superpowers (specs/plans/handoffs) is meant to be version-controlled
 docs/*
 !docs/superpowers/
+.vercel
+
+# brand assets and scratch screenshots — not meant to be version-controlled
+Identidad Visual/
+screens/
