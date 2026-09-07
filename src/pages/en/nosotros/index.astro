@@ -1,4 +1,9 @@
 ---
-import NosotrosPage from '../../../components/pages/NosotrosPage.astro';
+// H-1: old EN slug, replaced by /en/about/. On-demand (not prerendered) so
+// this issues a real 301 at request time — see src/i18n/routes.ts for the
+// slug map this is derived from.
+import { slugMap } from '../../../i18n/routes';
+
+export const prerender = false;
+return Astro.redirect(`/en/${slugMap.nosotros}/`, 301);
 ---
-<NosotrosPage lang="en" />

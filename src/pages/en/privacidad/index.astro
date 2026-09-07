@@ -1,4 +1,9 @@
 ---
-import PrivacidadPage from '../../../components/pages/PrivacidadPage.astro';
+// H-1: old EN slug, replaced by /en/privacy/. On-demand (not prerendered)
+// so this issues a real 301 at request time — see src/i18n/routes.ts for
+// the slug map this is derived from.
+import { slugMap } from '../../../i18n/routes';
+
+export const prerender = false;
+return Astro.redirect(`/en/${slugMap.privacidad}/`, 301);
 ---
-<PrivacidadPage lang="en" />

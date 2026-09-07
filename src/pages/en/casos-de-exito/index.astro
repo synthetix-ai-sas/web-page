@@ -1,4 +1,9 @@
 ---
-import CasosPage from '../../../components/pages/CasosPage.astro';
+// H-1: old EN slug, replaced by /en/case-studies/. On-demand (not
+// prerendered) so this issues a real 301 at request time — see
+// src/i18n/routes.ts for the slug map this is derived from.
+import { slugMap } from '../../../i18n/routes';
+
+export const prerender = false;
+return Astro.redirect(`/en/${slugMap['casos-de-exito']}/`, 301);
 ---
-<CasosPage lang="en" />

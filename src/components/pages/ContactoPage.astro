@@ -4,7 +4,7 @@ import Card from '../Card.astro';
 import Input from '../Input.astro';
 import Button from '../Button.astro';
 import MeshBackground from '../MeshBackground.astro';
-import { useTranslations, type Lang } from '../../i18n/utils';
+import { useTranslations, localizePath, type Lang } from '../../i18n/utils';
 
 interface Props {
   lang: Lang;
@@ -12,8 +12,38 @@ interface Props {
 const { lang } = Astro.props;
 const t = useTranslations(lang);
 const mapSrc = `https://maps.google.com/maps?q=${encodeURIComponent(t('contact.office.value'))}&z=15&output=embed`;
+const contactPageUrl = new URL(localizePath('/contacto', lang), Astro.site).toString();
+
+// Structured data for the office/contact details already rendered below
+// (t('contact.office.value'), t('contact.phone.value'), t('contact.hours.value')).
+// Address and phone mirror the Organization JSON-LD in Layout.astro; the
+// opening-hours fields structure the same Mon–Fri 8am–6pm shown in
+// contact.hours.value.
+const localBusinessJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'ProfessionalService',
+  '@id': `${contactPageUrl}#local-business`,
+  name: 'Synthetix AI',
+  url: contactPageUrl,
+  email: 'contact@synthetixaisas.com',
+  telephone: '+57 314 806 7436',
+  address: {
+    '@type': 'PostalAddress',
+    streetAddress: 'Cra 21B # 55-25',
+    addressLocality: 'Manizales',
+    addressRegion: 'Caldas',
+    addressCountry: 'CO',
+  },
+  openingHoursSpecification: {
+    '@type': 'OpeningHoursSpecification',
+    dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'],
+    opens: '08:00',
+    closes: '18:00',
+  },
+};
 ---
 <Layout title={t('contact.meta.title')} description={t('contact.meta.description')} lang={lang}>
+  <script type="application/ld+json" set:html={JSON.stringify(localBusinessJsonLd)} />
   <section class="grain-surface">
     <MeshBackground />
     <div class="container contact-grid">

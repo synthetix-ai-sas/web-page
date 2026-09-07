@@ -29,9 +29,25 @@ const faqs: { q: UiKey; a: UiKey }[] = [
   { q: "about.faq.3.q", a: "about.faq.3.a" },
   { q: "about.faq.4.q", a: "about.faq.4.a" },
 ];
+
+// Generated from the same `faqs` array rendered into the visible <details>
+// elements below, so the structured data can never drift from the page copy.
+const faqJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: faqs.map((f) => ({
+    "@type": "Question",
+    name: t(f.q),
+    acceptedAnswer: {
+      "@type": "Answer",
+      text: t(f.a),
+    },
+  })),
+};
 ---
 
 <Layout title={t("about.meta.title")} description={t("about.meta.description")} lang={lang}>
+  <script type="application/ld+json" set:html={JSON.stringify(faqJsonLd)} />
   <section>
     <div class="container">
       <span class="eyebrow">{t("about.eyebrow")}</span>

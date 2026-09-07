@@ -22,6 +22,15 @@ export const ui = {
     'nav.careers': 'Carreras',
     'nav.cases': 'Casos de Éxito',
     'nav.cta': 'Habla con un Ingeniero',
+    'nav.home': 'Inicio',
+
+    // ---- Language banner ----
+    'langBanner.message': 'Parece que prefieres el español.',
+    'langBanner.switch': 'Ver en español',
+    'langBanner.dismiss': 'Cerrar',
+
+    // ---- Meta (Open Graph) ----
+    'meta.ogImageAlt': 'Synthetix AI — Desarrollo de Sistemas de IA',
 
     // ---- Footer ----
     'footer.tagline': 'Diseñamos e implementamos sistemas de IA que se integran a tu stack — del prototipo a producción, con arquitectura que escala.',
@@ -121,7 +130,7 @@ export const ui = {
     'home.cta.button': 'Iniciar una Conversación',
 
     // ---- Servicios ----
-    'sv.meta.title': 'Servicios',
+    'sv.meta.title': 'Desarrollo de Software y Agentes de IA',
     'sv.meta.description': 'Software a la medida, automatización con inteligencia artificial y equipos dedicados para tu empresa — servicios claros, sin tecnicismos innecesarios.',
     'sv.eyebrow': 'Servicios',
     'sv.title': 'Arquitectura de sistemas para cada etapa',
@@ -152,7 +161,7 @@ export const ui = {
     'sv.vibe.p3.body': 'Entrega de funcionalidades bajo demanda.',
 
     // ---- Industrias ----
-    'ind.meta.title': 'Industrias',
+    'ind.meta.title': 'IA para Salud, Finanzas y Logística',
     'ind.meta.description': 'Soluciones de software e inteligencia artificial para salud, finanzas, logística, construcción y más — adaptadas a los retos reales de cada sector.',
     'ind.page.eyebrow': 'Industrias',
     'ind.page.title': 'Arquitectura de IA para cada industria',
@@ -170,7 +179,7 @@ export const ui = {
     'ind.cta.lead': 'Construimos arquitectura de IA a la medida de cualquier sector.',
 
     // ---- Nosotros ----
-    'about.meta.title': 'Nosotros',
+    'about.meta.title': 'Equipo de Arquitectura de IA Nearshore',
     'about.meta.description': 'Conoce al equipo detrás de Synthetix AI: más de una década desarrollando software e inteligencia artificial para empresas, con un trato cercano y transparente.',
     'about.eyebrow': 'Nosotros',
     'about.title': 'Un equipo de arquitectura, potenciado por IA',
@@ -196,7 +205,7 @@ export const ui = {
     'about.faq.4.a': 'Equipos basados en Medellín, alineados con horario de EE. UU. — colaboración en tiempo real.',
 
     // ---- Casos de Éxito ----
-    'cases.meta.title': 'Casos de Éxito',
+    'cases.meta.title': 'Casos de Éxito en IA: Salud y PropTech',
     'cases.meta.description': 'Casos reales de software e inteligencia artificial que hemos construido para nuestros clientes — resultados concretos, no promesas genéricas.',
     'cases.eyebrow': 'Nuestro Trabajo',
     'cases.title': 'Sistemas reales, resultados reales',
@@ -215,7 +224,7 @@ export const ui = {
     'cases.6.result': 'Un equipo extendido que escala el producto sin fricciones de contratación.',
 
     // ---- Carreras ----
-    'car.meta.title': 'Carreras',
+    'car.meta.title': 'Carreras: Ingeniería y Arquitectura de IA',
     'car.meta.description': 'Únete a Synthetix AI: buscamos ingenieros y arquitectos para construir software e inteligencia artificial junto a un equipo remoto en Colombia.',
     'car.eyebrow': 'Carreras',
     'car.title': 'Construye sistemas de IA con nosotros',
@@ -228,8 +237,8 @@ export const ui = {
     'car.apply': 'Aplicar',
 
     // ---- Contacto ----
-    'contact.meta.title': 'Contacto',
-    'contact.meta.description': 'Cuéntanos qué necesita tu empresa — un ingeniero de Synthetix AI te responde en menos de 24 horas para hablar de tu proyecto.',
+    'contact.meta.title': 'Contacto en Manizales, Caldas, Colombia',
+    'contact.meta.description': 'Cuéntanos qué necesita tu empresa — un ingeniero de Synthetix AI en Manizales te responde en menos de 24 horas para hablar de tu proyecto.',
     'contact.eyebrow': 'Contacto',
     'contact.title': 'Hablemos de tu sistema',
     'contact.lead': 'Cuéntanos qué estás construyendo — un ingeniero te responde en menos de 24 horas.',
@@ -322,6 +331,15 @@ export const ui = {
     'nav.careers': 'Careers',
     'nav.cases': 'Case Studies',
     'nav.cta': 'Talk to an Engineer',
+    'nav.home': 'Home',
+
+    // ---- Language banner ----
+    'langBanner.message': "It looks like you prefer English.",
+    'langBanner.switch': 'View in English',
+    'langBanner.dismiss': 'Dismiss',
+
+    // ---- Meta (Open Graph) ----
+    'meta.ogImageAlt': 'Synthetix AI — AI Systems Development',
 
     // ---- Footer ----
     'footer.tagline': 'We design and implement AI systems that integrate with your stack — from prototype to production, with architecture that scales.',
@@ -420,7 +438,7 @@ export const ui = {
     'home.cta.button': 'Start a Conversation',
 
     // ---- Services ----
-    'sv.meta.title': 'Services',
+    'sv.meta.title': 'Custom Software and AI Agent Development',
     'sv.meta.description': 'Custom software, AI automation, and dedicated teams for your business — clear services built around results, not technical buzzwords.',
     'sv.eyebrow': 'Services',
     'sv.title': 'Systems architecture for every stage',
@@ -451,7 +469,7 @@ export const ui = {
     'sv.vibe.p3.body': 'On-demand feature delivery.',
 
     // ---- Industries ----
-    'ind.meta.title': 'Industries',
+    'ind.meta.title': 'AI Solutions for Healthcare and Finance',
     'ind.meta.description': "Software and AI solutions for healthcare, finance, logistics, construction, and more — tailored to each industry's real challenges.",
     'ind.page.eyebrow': 'Industries',
     'ind.page.title': 'AI architecture for every industry',
@@ -469,7 +487,7 @@ export const ui = {
     'ind.cta.lead': 'We build AI architecture tailored to any sector.',
 
     // ---- About ----
-    'about.meta.title': 'About Us',
+    'about.meta.title': 'About Our Nearshore AI Architecture Team',
     'about.meta.description': 'Meet the team behind Synthetix AI: over a decade building software and AI for businesses, with a close, transparent way of working.',
     'about.eyebrow': 'About Us',
     'about.title': 'An architecture team, powered by AI',
@@ -495,8 +513,8 @@ export const ui = {
     'about.faq.4.a': 'Teams based in Medellín, aligned with U.S. hours — real-time collaboration.',
 
     // ---- Case Studies ----
-    'cases.meta.title': 'Case Studies',
-    'cases.meta.description': "Real software and AI projects we've built for our clients — concrete results, not generic promises.",
+    'cases.meta.title': 'AI Case Studies: Healthcare and Logistics',
+    'cases.meta.description': 'Real software and AI projects we have built for clients in healthcare, logistics, and PropTech — concrete results, not generic promises.',
     'cases.eyebrow': 'Our Work',
     'cases.title': 'Real systems, real results',
     'cases.lead': 'A sample of the AI architecture we have built for our clients.',
@@ -514,7 +532,7 @@ export const ui = {
     'cases.6.result': 'An extended team that scales the product without hiring friction.',
 
     // ---- Careers ----
-    'car.meta.title': 'Careers',
+    'car.meta.title': 'Remote AI Engineering Jobs in Colombia',
     'car.meta.description': "Join Synthetix AI: we're hiring engineers and architects to build software and AI alongside a remote team based in Colombia.",
     'car.eyebrow': 'Careers',
     'car.title': 'Build AI systems with us',
@@ -527,7 +545,7 @@ export const ui = {
     'car.apply': 'Apply',
 
     // ---- Contact ----
-    'contact.meta.title': 'Contact',
+    'contact.meta.title': 'Contact Us: Talk to an AI Engineer',
     'contact.meta.description': 'Tell us what your business needs — a Synthetix AI engineer replies within 24 hours to talk about your project.',
     'contact.eyebrow': 'Contact',
     'contact.title': 'Let’s talk about your system',

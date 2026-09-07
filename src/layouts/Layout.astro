@@ -3,15 +3,18 @@ import { ClientRouter } from 'astro:transitions';
 import '../styles/global.css';
 import Navbar from '../components/Navbar.astro';
 import Footer from '../components/Footer.astro';
-import { useTranslations, switchLangPath, type Lang } from '../i18n/utils';
+import { useTranslations, switchLangPath, localizePath, type Lang } from '../i18n/utils';
 import logoLockup from '../assets/logo-lockup.png';
 
 interface Props {
   title: string;
   lang: Lang;
   description?: string;
+  /** Path (or absolute URL) to the Open Graph / Twitter card image. Defaults
+   * to the site-wide 1200x630 interim OG image. */
+  ogImage?: string;
 }
-const { title, lang } = Astro.props;
+const { title, lang, ogImage = '/og-image.png' } = Astro.props;
 const t = useTranslations(lang);
 const description = Astro.props.description ?? t('footer.tagline');
 
@@ -22,16 +25,20 @@ const canonicalHref = lang === 'es' ? esHref : enHref;
 const ogLocale = { es: 'es_ES', en: 'en_US' } as const satisfies Record<Lang, string>;
 
 const fullTitle = `${title} — Synthetix AI`;
-const ogImageHref = new URL(logoLockup.src, Astro.site).toString();
+// og:image / twitter:image: a stable 1200x630 asset, distinct from the
+// Organization.logo below (which stays pointed at the small brand mark).
+const ogImageHref = new URL(ogImage, Astro.site).toString();
+const organizationLogoHref = new URL(logoLockup.src, Astro.site).toString();
 
 const organizationJsonLd = {
   '@context': 'https://schema.org',
   '@type': 'Organization',
+  '@id': 'https://www.synthetixaisas.com/#organization',
   name: 'Synthetix AI',
   legalName: 'Synthetix AI S.A.S.',
   taxID: '902069229-9',
   url: 'https://www.synthetixaisas.com',
-  logo: ogImageHref,
+  logo: organizationLogoHref,
   email: 'contact@synthetixaisas.com',
   telephone: '+57 314 806 7436',
   address: {
@@ -42,6 +49,58 @@ const organizationJsonLd = {
     addressCountry: 'CO',
   },
 };
+
+// BreadcrumbList: derived from the URL path, reusing the same nav/footer
+// labels shown elsewhere for each route (see Navbar.astro / ui.ts).
+const breadcrumbLabelKeys: Partial<Record<string, Parameters<typeof t>[0]>> = {
+  servicios: 'nav.services',
+  industrias: 'nav.industries',
+  nosotros: 'nav.about',
+  carreras: 'nav.careers',
+  'casos-de-exito': 'nav.cases',
+  contacto: 'footer.col.contact',
+  privacidad: 'footer.privacy',
+  terminos: 'footer.terms',
+};
+// Segment keys below are Spanish (the canonical slugs), so resolve the
+// current page back to its ES path first — as of H-1 the EN path segment
+// is a different, translated slug and can no longer be recovered by just
+// stripping the `/en` prefix.
+const localPath = switchLangPath(currentPath, 'es');
+const pathSegments = localPath.split('/').filter(Boolean);
+const breadcrumbItems = [
+  {
+    '@type': 'ListItem',
+    position: 1,
+    name: t('nav.home'),
+    item: new URL(localizePath('/', lang), Astro.site).toString(),
+  },
+  ...pathSegments
+    .map((segment, index) => {
+      const key = breadcrumbLabelKeys[segment];
+      if (!key) return null;
+      const segmentPath = `/${pathSegments.slice(0, index + 1).join('/')}`;
+      return {
+        '@type': 'ListItem',
+        position: index + 2,
+        name: t(key),
+        item: new URL(localizePath(segmentPath, lang), Astro.site).toString(),
+      };
+    })
+    .filter((item): item is NonNullable<typeof item> => item !== null),
+];
+const breadcrumbJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: breadcrumbItems,
+};
+
+// Language banner: suggests the other locale when the browser language
+// doesn't match the page being viewed. Never navigates on its own — see the
+// script below. Symmetric: ES pages suggest EN and vice versa.
+const otherLang: Lang = lang === 'es' ? 'en' : 'es';
+const tOther = useTranslations(otherLang);
+const langBannerHref = switchLangPath(currentPath, otherLang);
 ---
 <!doctype html>
 <html lang={lang}>
@@ -64,6 +123,9 @@ const organizationJsonLd = {
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonicalHref} />
     <meta property="og:image" content={ogImageHref} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content={t('meta.ogImageAlt')} />
 
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={fullTitle} />
@@ -80,8 +142,23 @@ const organizationJsonLd = {
 
     <ClientRouter />
     <script type="application/ld+json" set:html={JSON.stringify(organizationJsonLd)} />
+    <script type="application/ld+json" set:html={JSON.stringify(breadcrumbJsonLd)} />
   </head>
   <body>
+    <div id="sx-lang-banner" class="sx-lang-banner" data-target-lang={otherLang} hidden>
+      <div class="container sx-lang-banner__inner">
+        <p>{tOther('langBanner.message')}</p>
+        <div class="sx-lang-banner__actions">
+          <a href={langBannerHref} id="sx-lang-banner-switch" class="sx-lang-banner__switch">{tOther('langBanner.switch')}</a>
+          <button
+            type="button"
+            id="sx-lang-banner-dismiss"
+            class="sx-lang-banner__dismiss"
+            aria-label={tOther('langBanner.dismiss')}
+          >&times;</button>
+        </div>
+      </div>
+    </div>
     <Navbar lang={lang} />
     <main id="main-content" transition:animate="fade">
       <slot />
@@ -110,21 +187,42 @@ const organizationJsonLd = {
     </script>
 
     <script>
-      // Silent redirect: if the visitor has no stored language preference and
-      // their browser reports English, send them to the /en equivalent of the
-      // current page. Never overrides an explicit choice (see Navbar.astro).
-      import { getStoredLang, browserLang } from '../i18n/detect';
-      import { switchLangPath } from '../i18n/utils';
+      // Language banner: never navigates on its own (no location.replace,
+      // .assign, or .href assignment reachable from browserLang). It only
+      // toggles the [hidden] attribute on a plain <a href> banner rendered
+      // above the Navbar — see the markup and switchLangPath() call in this
+      // file's frontmatter. Replaces the old silent auto-redirect, which
+      // fired against every Spanish page render for crawlers reporting
+      // en-US (Google's WRS), risking the English DOM getting indexed under
+      // Spanish URLs.
+      import { getStoredLang, setStoredLang, browserLang } from '../i18n/detect';
 
-      function autoDetectLanguage() {
-        const path = window.location.pathname;
-        if (path.startsWith('/en')) return;
-        if (getStoredLang()) return;
-        if (browserLang() === 'en') {
-          window.location.replace(switchLangPath(path, 'en'));
+      function initLangBanner() {
+        const banner = document.getElementById('sx-lang-banner');
+        if (!(banner instanceof HTMLElement)) return;
+        const targetLang = banner.dataset.targetLang;
+        const switchLink = document.getElementById('sx-lang-banner-switch');
+        const dismissBtn = document.getElementById('sx-lang-banner-dismiss');
+
+        if (getStoredLang() || browserLang() !== targetLang) {
+          banner.hidden = true;
+          return;
         }
+        banner.hidden = false;
+
+        dismissBtn?.addEventListener('click', () => {
+          const currentLang = window.location.pathname.startsWith('/en') ? 'en' : 'es';
+          setStoredLang(currentLang);
+          banner.hidden = true;
+        });
+
+        switchLink?.addEventListener('click', () => {
+          if (targetLang === 'es' || targetLang === 'en') setStoredLang(targetLang);
+          // No preventDefault/navigation call here — this is a real <a href>
+          // click, left to the browser (and ClientRouter) to handle normally.
+        });
       }
-      document.addEventListener('astro:page-load', autoDetectLanguage);
+      document.addEventListener('astro:page-load', initLangBanner);
     </script>
   </body>
 </html>
@@ -139,5 +237,49 @@ const organizationJsonLd = {
   [data-reveal].is-visible {
     opacity: 1;
     transform: translateY(0);
+  }
+</style>
+
+<style>
+  .sx-lang-banner {
+    background: var(--sx-slate-800);
+    border-bottom: 1px solid var(--sx-slate-700);
+  }
+  .sx-lang-banner__inner {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--sx-space-3);
+    padding: var(--sx-space-2) var(--sx-space-6);
+    font-size: var(--fs-sm);
+  }
+  .sx-lang-banner__inner p {
+    margin: 0;
+    color: var(--sx-slate-200);
+  }
+  .sx-lang-banner__actions {
+    display: flex;
+    align-items: center;
+    gap: var(--sx-space-4);
+  }
+  .sx-lang-banner__switch {
+    color: var(--sx-tech-cyan);
+    font-weight: 600;
+  }
+  .sx-lang-banner__switch:hover {
+    text-decoration: underline;
+  }
+  .sx-lang-banner__dismiss {
+    background: none;
+    border: none;
+    color: var(--sx-slate-400);
+    font-size: var(--fs-body);
+    line-height: 1;
+    cursor: pointer;
+    padding: var(--sx-space-1);
+  }
+  .sx-lang-banner__dismiss:hover {
+    color: var(--sx-slate-100);
   }
 </style>

@@ -26,7 +26,7 @@ export function browserLang(): Lang {
  * Resolves which language to display for the current page, in priority order:
  * URL prefix (if already under /en), then stored preference, then browser language.
  * Used by pages that render both languages at once (e.g. the 404 page) to pick
- * which block to show — unlike the auto-redirect in Layout.astro, this never navigates.
+ * which block to show. Like the language banner in Layout.astro, this never navigates.
  */
 export function resolveDisplayLang(): Lang {
   if (window.location.pathname.startsWith('/en')) return 'en';
