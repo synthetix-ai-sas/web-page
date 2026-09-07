@@ -62,10 +62,12 @@ const localBusinessJsonLd = {
           <h4>{t('contact.office')}</h4>
           <p>{t('contact.office.value')}</p>
           <div class="office-map">
+            <div class="office-map__skeleton" aria-hidden="true"></div>
             <iframe
+              class="office-map__iframe"
               src={mapSrc}
               width="100%"
-              height="220"
+              height="360"
               style="border:0"
               loading="lazy"
               referrerpolicy="no-referrer-when-downgrade"
@@ -134,6 +136,20 @@ const localBusinessJsonLd = {
   document.addEventListener('astro:page-load', initContactForm);
 </script>
 
+<script>
+  function initOfficeMap() {
+    const wrapper = document.querySelector('.office-map');
+    const iframe = wrapper?.querySelector('.office-map__iframe');
+    if (!(wrapper instanceof HTMLElement) || !(iframe instanceof HTMLIFrameElement)) return;
+    if (wrapper.classList.contains('is-loaded')) return;
+
+    iframe.addEventListener('load', () => {
+      wrapper.classList.add('is-loaded');
+    }, { once: true });
+  }
+  document.addEventListener('astro:page-load', initOfficeMap);
+</script>
+
 <style>
   .lead { max-width: 480px; font-size: 18px; }
   .contact-grid {
@@ -148,8 +164,24 @@ const localBusinessJsonLd = {
   .office-info h4 { font-size: var(--fs-sm); text-transform: uppercase; letter-spacing: 0.06em; color: var(--sx-slate-400); margin: var(--sx-space-4) 0 var(--sx-space-1); }
   .office-info p { margin: 0; }
   .office-info a { color: var(--sx-tech-cyan); }
-  .office-map { margin-top: var(--sx-space-4); border-radius: var(--sx-radius-lg); overflow: hidden; }
-  .office-map iframe { display: block; }
+  .office-map { position: relative; margin-top: var(--sx-space-4); height: 360px; border-radius: var(--sx-radius-lg); overflow: hidden; }
+  .office-map iframe { display: block; width: 100%; height: 100%; position: relative; z-index: 1; opacity: 0; transition: opacity 0.4s ease; }
+  .office-map.is-loaded iframe { opacity: 1; }
+  .office-map__skeleton {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg, var(--sx-slate-800) 25%, var(--sx-slate-700) 50%, var(--sx-slate-800) 75%);
+    background-size: 200% 100%;
+    animation: office-map-shimmer 1.6s ease-in-out infinite;
+  }
+  .office-map.is-loaded .office-map__skeleton { display: none; }
+  @keyframes office-map-shimmer {
+    0% { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .office-map__skeleton { animation: none; background: var(--sx-slate-800); }
+  }
   .contact-form { display: flex; flex-direction: column; }
   .hp-field { position: absolute; width: 1px; height: 1px; overflow: hidden; opacity: 0; pointer-events: none; }
   .contact-form__status { margin-top: var(--sx-space-4); font-size: var(--fs-sm); min-height: 1.2em; }
