@@ -1,0 +1,92 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Card from '../Card.astro';
+import { useTranslations, localizePath, type Lang } from '../../i18n/utils';
+import { getCollection } from 'astro:content';
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+
+const collectionName = lang === 'es' ? 'blog-es' : 'blog-en';
+const posts = (await getCollection(collectionName, ({ data }) => !data.draft)).sort(
+  (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
+);
+
+const dateFormatter = new Intl.DateTimeFormat(lang === 'es' ? 'es-CO' : 'en-US', {
+  year: 'numeric',
+  month: 'long',
+  day: 'numeric',
+});
+---
+<Layout title={t('blog.meta.title')} description={t('blog.meta.description')} lang={lang}>
+  <section>
+    <div class="container">
+      <span class="eyebrow">{t('blog.eyebrow')}</span>
+      <h1>{t('blog.title')}</h1>
+      <p class="lead">{t('blog.lead')}</p>
+    </div>
+  </section>
+
+  <section class="grain-surface">
+    <div class="container">
+      {posts.length === 0 ? (
+        <p>{t('blog.empty')}</p>
+      ) : (
+        <div class="blog-grid">
+          {posts.map((post) => (
+            <a href={localizePath(`/blog/${post.id}`, lang)} class="blog-card-link" data-reveal>
+              <Card>
+                <>
+                  {post.data.heroImage && (
+                    <img class="blog-card__image" src={post.data.heroImage} alt="" />
+                  )}
+                  <h3>{post.data.title}</h3>
+                  <p class="blog-card__date">{dateFormatter.format(post.data.pubDate)}</p>
+                  <p>{post.data.description}</p>
+                  <span class="blog-card__readmore">{t('blog.readMore')}</span>
+                </>
+              </Card>
+            </a>
+          ))}
+        </div>
+      )}
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .lead { max-width: 560px; font-size: 18px; }
+  .blog-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--sx-space-6);
+  }
+  .blog-card-link { display: block; color: inherit; text-decoration: none; }
+  .blog-card__image {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+    border-radius: var(--sx-radius-md);
+    margin-bottom: var(--sx-space-4);
+  }
+  .blog-card__date {
+    color: var(--sx-slate-400);
+    font-size: var(--fs-sm);
+  }
+  .blog-card__readmore {
+    display: inline-block;
+    margin-top: var(--sx-space-2);
+    color: var(--sx-tech-cyan);
+    font-weight: 600;
+    font-size: var(--fs-sm);
+  }
+  @media (max-width: 900px) {
+    .blog-grid { grid-template-columns: 1fr 1fr; }
+  }
+  @media (max-width: 560px) {
+    .blog-grid { grid-template-columns: 1fr; }
+  }
+</style>

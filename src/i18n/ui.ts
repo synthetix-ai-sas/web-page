@@ -20,6 +20,7 @@ export const ui = {
     'nav.about': 'Nosotros',
     'nav.about.how': 'Cómo trabajamos',
     'nav.about.faq': 'Preguntas frecuentes',
+    'nav.blog': 'Blog',
     'nav.cta': 'Habla con un Ingeniero',
     'nav.home': 'Inicio',
 
@@ -295,6 +296,15 @@ export const ui = {
     'about.team.title': 'Las personas detrás de Synthetix AI',
     'about.team.lead': 'Un equipo fundador con experiencia en ingeniería de software y arquitectura de IA.',
     'about.team.role': 'Cofundador',
+
+    // ---- Blog ----
+    'blog.meta.title': 'Blog de Synthetix AI',
+    'blog.meta.description': 'Artículos sobre desarrollo de software, arquitectura de IA y agentes autónomos, escritos por el equipo de Synthetix AI.',
+    'blog.eyebrow': 'Blog',
+    'blog.title': 'Ideas sobre IA y arquitectura de software',
+    'blog.lead': 'Notas del equipo sobre lo que estamos construyendo y aprendiendo.',
+    'blog.readMore': 'Leer más →',
+    'blog.empty': 'Todavía no hay artículos publicados. Vuelve pronto.',
   },
 
   en: {
@@ -309,6 +319,7 @@ export const ui = {
     'nav.about': 'About Us',
     'nav.about.how': 'How we work',
     'nav.about.faq': 'FAQ',
+    'nav.blog': 'Blog',
     'nav.cta': 'Talk to an Engineer',
     'nav.home': 'Home',
 
@@ -583,6 +594,15 @@ export const ui = {
     'about.team.title': 'The people behind Synthetix AI',
     'about.team.lead': 'A founding team with a background in software engineering and AI architecture.',
     'about.team.role': 'Co-Founder',
+
+    // ---- Blog ----
+    'blog.meta.title': 'Synthetix AI Blog',
+    'blog.meta.description': 'Articles on software development, AI architecture, and autonomous agents, written by the Synthetix AI team.',
+    'blog.eyebrow': 'Blog',
+    'blog.title': 'Ideas on AI and software architecture',
+    'blog.lead': 'Notes from the team on what we’re building and learning.',
+    'blog.readMore': 'Read more →',
+    'blog.empty': 'No articles published yet. Check back soon.',
   },
 } as const;
 
