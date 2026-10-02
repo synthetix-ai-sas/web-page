@@ -5,8 +5,9 @@ import { useTranslations, localizePath, switchLangPath, languages, type Lang } f
 
 interface Props {
   lang: Lang;
+  langAlternates?: { es: string; en: string };
 }
-const { lang } = Astro.props;
+const { lang, langAlternates } = Astro.props;
 const t = useTranslations(lang);
 const currentPath = Astro.url.pathname;
 
@@ -68,7 +69,7 @@ const nav = [
       <div class="sx-lang" role="group" aria-label="Idioma / Language">
         {(Object.keys(languages) as Lang[]).map((l) => (
           <a
-            href={switchLangPath(currentPath, l)}
+            href={langAlternates ? langAlternates[l] : switchLangPath(currentPath, l)}
             data-lang={l}
             class:list={['sx-lang__btn', { 'is-active': l === lang }]}
             aria-current={l === lang ? 'true' : undefined}

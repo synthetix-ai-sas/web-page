@@ -13,14 +13,20 @@ interface Props {
   /** Path (or absolute URL) to the Open Graph / Twitter card image. Defaults
    * to the site-wide 1200x630 interim OG image. */
   ogImage?: string;
+  /** Overrides the ES/EN alternate link targets (canonical/hreflang tags,
+   * the language banner, and the Navbar language switcher) for pages whose
+   * current URL has no real counterpart in the other locale — e.g. a blog
+   * post that only exists in one language. Both values must already be
+   * localized paths (built with `localizePath`). */
+  langAlternates?: { es: string; en: string };
 }
-const { title, lang, ogImage = '/og-image.png' } = Astro.props;
+const { title, lang, ogImage = '/og-image.png', langAlternates } = Astro.props;
 const t = useTranslations(lang);
 const description = Astro.props.description ?? t('footer.tagline');
 
 const currentPath = Astro.url.pathname;
-const esHref = new URL(switchLangPath(currentPath, 'es'), Astro.site).toString();
-const enHref = new URL(switchLangPath(currentPath, 'en'), Astro.site).toString();
+const esHref = new URL(langAlternates?.es ?? switchLangPath(currentPath, 'es'), Astro.site).toString();
+const enHref = new URL(langAlternates?.en ?? switchLangPath(currentPath, 'en'), Astro.site).toString();
 const canonicalHref = lang === 'es' ? esHref : enHref;
 const ogLocale = { es: 'es_ES', en: 'en_US' } as const satisfies Record<Lang, string>;
 
@@ -100,7 +106,7 @@ const breadcrumbJsonLd = {
 // script below. Symmetric: ES pages suggest EN and vice versa.
 const otherLang: Lang = lang === 'es' ? 'en' : 'es';
 const tOther = useTranslations(otherLang);
-const langBannerHref = switchLangPath(currentPath, otherLang);
+const langBannerHref = langAlternates ? langAlternates[otherLang] : switchLangPath(currentPath, otherLang);
 ---
 <!doctype html>
 <html lang={lang}>
@@ -164,7 +170,7 @@ const langBannerHref = switchLangPath(currentPath, otherLang);
         </div>
       </div>
     </div>
-    <Navbar lang={lang} />
+    <Navbar lang={lang} langAlternates={langAlternates} />
     <main id="main-content" transition:animate="fade">
       <slot />
     </main>

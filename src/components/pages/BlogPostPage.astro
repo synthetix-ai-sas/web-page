@@ -1,0 +1,68 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { render, type CollectionEntry } from 'astro:content';
+import { useTranslations, localizePath, type Lang } from '../../i18n/utils';
+
+interface Props {
+  lang: Lang;
+  entry: CollectionEntry<'blog-es' | 'blog-en'>;
+}
+const { lang, entry } = Astro.props;
+const t = useTranslations(lang);
+const { Content } = await render(entry);
+
+const dateFormatter = new Intl.DateTimeFormat(lang === 'es' ? 'es-CO' : 'en-US', {
+  year: 'numeric',
+  month: 'long',
+  day: 'numeric',
+});
+
+// This post's slug has no guaranteed counterpart in the other language, so
+// the ES/EN switcher falls back to that language's blog index rather than
+// attempting a same-slug translation (see Layout.astro's `langAlternates`).
+const langAlternates = { es: localizePath('/blog', 'es'), en: localizePath('/blog', 'en') };
+---
+<Layout
+  title={`${entry.data.title} — ${t('blog.eyebrow')}`}
+  description={entry.data.description}
+  lang={lang}
+  langAlternates={langAlternates}
+>
+  <article>
+    <div class="container">
+      <span class="eyebrow">{t('blog.eyebrow')}</span>
+      <h1>{entry.data.title}</h1>
+      <p class="post-meta">{dateFormatter.format(entry.data.pubDate)} · {entry.data.author}</p>
+      {entry.data.heroImage && (
+        <img class="post-hero" src={entry.data.heroImage} alt="" />
+      )}
+      <div class="post-body">
+        <Content />
+      </div>
+    </div>
+  </article>
+</Layout>
+
+<style>
+  .post-meta {
+    color: var(--sx-slate-400);
+    font-size: var(--fs-sm);
+    margin-bottom: var(--sx-space-6);
+  }
+  .post-hero {
+    width: 100%;
+    max-height: 420px;
+    object-fit: cover;
+    border-radius: var(--sx-radius-lg);
+    margin-bottom: var(--sx-space-8);
+  }
+  .post-body {
+    max-width: 720px;
+  }
+  .post-body :global(h2) {
+    margin-top: var(--sx-space-8);
+  }
+  .post-body :global(p) {
+    margin-bottom: var(--sx-space-4);
+  }
+</style>
