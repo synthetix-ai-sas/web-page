@@ -16,6 +16,7 @@ export const ui = {
     'nav.services.vibe': 'Vibe-to-Production',
     'nav.industries': 'Industrias',
     'nav.industries.all': 'Ver todas →',
+    'nav.products': 'Productos',
     'nav.about': 'Nosotros',
     'nav.about.how': 'Cómo trabajamos',
     'nav.about.faq': 'Preguntas frecuentes',
@@ -176,6 +177,19 @@ export const ui = {
     'ind.cta.title': '¿No ves tu industria?',
     'ind.cta.lead': 'Construimos arquitectura de IA a la medida de cualquier sector.',
 
+    // ---- Productos ----
+    'prod.meta.title': 'Productos de IA para tu Negocio',
+    'prod.meta.description': 'Conoce los productos de inteligencia artificial que construimos en Synthetix AI — soluciones listas para integrarse a tu operación.',
+    'prod.eyebrow': 'Productos',
+    'prod.title': 'Productos que aceleran tu operación',
+    'prod.lead': 'Más allá de proyectos a la medida, construimos productos propios que resuelven problemas recurrentes de nuestros clientes.',
+    'prod.1.name': 'Producto Uno',
+    'prod.1.desc': 'Descripción breve del primer producto — este texto es un placeholder, reemplázalo con el contenido real cuando esté listo.',
+    'prod.2.name': 'Producto Dos',
+    'prod.2.desc': 'Descripción breve del segundo producto — este texto es un placeholder, reemplázalo con el contenido real cuando esté listo.',
+    'prod.cta.title': '¿Quieres saber más?',
+    'prod.cta.lead': 'Hablemos de cómo estos productos pueden integrarse a tu operación.',
+
     // ---- Nosotros ----
     'about.meta.title': 'Equipo de Arquitectura de IA Nearshore',
     'about.meta.description': 'Conoce al equipo detrás de Synthetix AI: más de una década desarrollando software e inteligencia artificial para empresas, con un trato cercano y transparente.',
@@ -291,6 +305,7 @@ export const ui = {
     'nav.services.vibe': 'Vibe-to-Production',
     'nav.industries': 'Industries',
     'nav.industries.all': 'View all →',
+    'nav.products': 'Products',
     'nav.about': 'About Us',
     'nav.about.how': 'How we work',
     'nav.about.faq': 'FAQ',
@@ -449,6 +464,19 @@ export const ui = {
     'ind.hoteleria.desc': 'Smart booking systems and guest experience personalization.',
     'ind.cta.title': 'Don’t see your industry?',
     'ind.cta.lead': 'We build AI architecture tailored to any sector.',
+
+    // ---- Products ----
+    'prod.meta.title': 'AI Products for Your Business',
+    'prod.meta.description': 'Meet the AI products we build at Synthetix AI — solutions ready to integrate into your operation.',
+    'prod.eyebrow': 'Products',
+    'prod.title': 'Products that accelerate your operation',
+    'prod.lead': 'Beyond custom projects, we build our own products that solve recurring problems for our clients.',
+    'prod.1.name': 'Product One',
+    'prod.1.desc': 'Short description of the first product — this is placeholder text, replace it with real content once it’s ready.',
+    'prod.2.name': 'Product Two',
+    'prod.2.desc': 'Short description of the second product — this is placeholder text, replace it with real content once it’s ready.',
+    'prod.cta.title': 'Want to know more?',
+    'prod.cta.lead': 'Let’s talk about how these products can fit into your operation.',
 
     // ---- About ----
     'about.meta.title': 'About Our Nearshore AI Architecture Team',

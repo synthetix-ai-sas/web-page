@@ -13,6 +13,7 @@ export const slugMap: Record<string, string> = {
   servicios: 'services',
   industrias: 'industries',
   nosotros: 'about',
+  productos: 'products',
   contacto: 'contact',
   privacidad: 'privacy',
   terminos: 'terms',
