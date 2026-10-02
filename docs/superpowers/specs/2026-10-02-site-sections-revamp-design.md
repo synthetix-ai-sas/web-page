@@ -108,10 +108,13 @@ src/content/
     *.md
 ```
 
-`src/content/config.ts`:
+`src/content.config.ts` (project root of content config as of Astro 5+'s
+Content Layer API — not the legacy `src/content/config.ts`):
 
 ```ts
-import { defineCollection, z } from 'astro:content';
+import { defineCollection } from 'astro:content';
+import { glob } from 'astro/loaders';
+import { z } from 'astro/zod';
 
 const blogSchema = z.object({
   title: z.string(),
@@ -123,10 +126,17 @@ const blogSchema = z.object({
   draft: z.boolean().default(false),
 });
 
-export const collections = {
-  'blog-es': defineCollection({ type: 'content', schema: blogSchema }),
-  'blog-en': defineCollection({ type: 'content', schema: blogSchema }),
-};
+const blogEs = defineCollection({
+  loader: glob({ pattern: '**/*.md', base: './src/content/blog-es' }),
+  schema: blogSchema,
+});
+
+const blogEn = defineCollection({
+  loader: glob({ pattern: '**/*.md', base: './src/content/blog-en' }),
+  schema: blogSchema,
+});
+
+export const collections = { 'blog-es': blogEs, 'blog-en': blogEn };
 ```
 
 `heroImage` is a plain relative path string (not Astro's `image()` helper)
@@ -136,8 +146,13 @@ and add meaningful setup surface. If/when real photography is added, this
 is the one field to upgrade to `image()`; everything else in this spec is
 unaffected by that follow-up.
 
-Each post is rendered with `getCollection` + `render()` (Astro 7's content
-API), same as any other Astro content-collection consumer.
+Each post is rendered with `getCollection` (listing/filtering/sorting) and
+`render(entry)` (Astro 7's content API, imported from `astro:content`) for
+the Markdown body on the detail page, same as any other Astro
+content-collection consumer. The glob loader generates `entry.id` from the
+filename (kebab-cased); routes use a `[...id]` rest parameter so a
+slash-containing id (e.g. from a nested file path) still maps to a valid
+URL.
 
 ### Pages
 
@@ -148,15 +163,16 @@ API), same as any other Astro content-collection consumer.
   description, "read more" link to the post.
 - `src/components/pages/BlogPostPage.astro` — detail. Props: `{ lang:
   Lang; entry: CollectionEntry<'blog-es' | 'blog-en'> }` (the owning
-  `[slug].astro` resolves the entry via `getStaticPaths`, so a nonexistent
-  slug is simply never generated as a route and 404s naturally — no
-  runtime "not found" branch needed inside the component). Renders hero
-  image, title, date, author, then the rendered Markdown body.
+  `[...id].astro` resolves the entry via `getStaticPaths`, so a
+  nonexistent id is simply never generated as a route and 404s naturally
+  — no runtime "not found" branch needed inside the component). Calls
+  `render(entry)` itself to get the `<Content />` component, then renders
+  hero image, title, date, author, and the body.
 - `src/pages/blog/index.astro` → `<BlogPage lang="es" />`
-- `src/pages/blog/[slug].astro` → `getStaticPaths` over `blog-es`,
+- `src/pages/blog/[...id].astro` → `getStaticPaths` over `blog-es`,
   renders `<BlogPostPage lang="es" entry={entry} />`
 - `src/pages/en/blog/index.astro` → `<BlogPage lang="en" />`
-- `src/pages/en/blog/[slug].astro` → `getStaticPaths` over `blog-en`,
+- `src/pages/en/blog/[...id].astro` → `getStaticPaths` over `blog-en`,
   renders `<BlogPostPage lang="en" entry={entry} />`
 
 ### Language switcher on post pages
@@ -203,11 +219,15 @@ true`) without depending on real editorial content.
 ### `Avatar.astro`
 
 Add an optional `photo` prop (an Astro `ImageMetadata`, i.e. the result of
-an `import photo from '...'`). When present, render an optimized `<Image>`
-in place of the initials circle; when absent, keep today's initials
-placeholder exactly as-is. `initials` becomes required only when `photo`
-is omitted (component still accepts both; simplest typing: `initials:
-string; photo?: ImageMetadata`, photo takes precedence when given).
+`import photo from '...'`). When present, render a plain `<img src=
+{photo.src} width={photo.width} height={photo.height}>` in place of the
+initials circle — matching the rest of the codebase's existing image
+convention (`logo-mark.png`/`logo-lockup.png` are imported and read via
+`.src` on a plain `<img>`, not the `astro:assets` `<Image>` component; this
+project has no `sharp` dependency installed, so introducing the optimized
+`<Image>` pipeline is out of scope here). When `photo` is absent, keep
+today's initials placeholder exactly as-is. Typing: `{ initials: string;
+photo?: ImageMetadata }`, photo takes precedence when given.
 
 ### `NosotrosPage.astro`
 
