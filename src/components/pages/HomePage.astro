@@ -2,7 +2,6 @@
 import Layout from '../../layouts/Layout.astro';
 import Button from '../Button.astro';
 import Badge from '../Badge.astro';
-import Card from '../Card.astro';
 import StatCard from '../StatCard.astro';
 import ProcessStep from '../ProcessStep.astro';
 import mark from '../../assets/logo-mark.png';
@@ -15,9 +14,8 @@ const { lang } = Astro.props;
 const t = useTranslations(lang);
 
 const industryKeys = ['salud', 'finanzas', 'logistica', 'construccion', 'proptech', 'ecommerce', 'educacion', 'suministro', 'hoteleria'] as const;
-const stack = ['Python', 'TypeScript', 'React', 'AWS', 'PostgreSQL', 'OpenAI', 'Kubernetes', 'Docker'];
 
-const whyUs = [1, 2, 3, 4, 5, 6] as const;
+const whyUs = [1, 2, 4, 5] as const;
 const heroFeatures = [1, 2, 3, 4] as const;
 const heroFeatureIcons = [
   // AI Avanzada — chip
@@ -122,34 +120,8 @@ const heroFeatureIcons = [
     </div>
   </section>
 
-  <!-- DOS CAMINOS -->
-  <section id="paths" class="grain-surface">
-    <div class="container">
-      <div class="section-head" data-reveal>
-        <span class="eyebrow">{t('home.paths.eyebrow')}</span>
-        <h2>{t('home.paths.title')}</h2>
-        <p>{t('home.paths.lead')}</p>
-      </div>
-
-      <div class="paths-grid">
-        <Card glow data-reveal>
-          <span class="eyebrow">{t('home.paths.a.eyebrow')}</span>
-          <h3>{t('home.paths.a.title')}</h3>
-          <p>{t('home.paths.a.body')}</p>
-          <Button href={localizePath('/servicios#desarrollo', lang)} variant="outline" size="sm">{t('common.moreInfo')}</Button>
-        </Card>
-        <Card glow data-reveal>
-          <span class="eyebrow">{t('home.paths.b.eyebrow')}</span>
-          <h3>{t('home.paths.b.title')}</h3>
-          <p>{t('home.paths.b.body')}</p>
-          <Button href={localizePath('/servicios#vibe-to-production', lang)} variant="outline" size="sm">{t('common.moreInfo')}</Button>
-        </Card>
-      </div>
-    </div>
-  </section>
-
   <!-- POR QUÉ NOSOTROS -->
-  <section>
+  <section class="grain-surface">
     <div class="container">
       <div class="section-head" data-reveal>
         <span class="eyebrow">{t('home.why.eyebrow')}</span>
@@ -158,9 +130,9 @@ const heroFeatureIcons = [
       </div>
 
       <div class="why-grid">
-        {whyUs.map((n) => (
+        {whyUs.map((n, i) => (
           <div class="why-item" data-reveal>
-            <span class="why-item__n mono">0{n}</span>
+            <span class="why-item__n mono">0{i + 1}</span>
             <h4>{t(`home.why.${n}.title`)}</h4>
             <p>{t(`home.why.${n}.body`)}</p>
           </div>
@@ -170,7 +142,7 @@ const heroFeatureIcons = [
   </section>
 
   <!-- INDUSTRIAS -->
-  <section class="grain-surface">
+  <section>
     <div class="container">
       <div class="section-head" data-reveal>
         <span class="eyebrow">{t('home.industries.eyebrow')}</span>
@@ -181,19 +153,6 @@ const heroFeatureIcons = [
         {industryKeys.map((k) => <Badge tone="brand">{t(`ind.${k}`)}</Badge>)}
       </div>
       <Button href={localizePath('/industrias', lang)} variant="ghost">{t('home.industries.cta')}</Button>
-    </div>
-  </section>
-
-  <!-- STACK -->
-  <section>
-    <div class="container">
-      <div class="section-head" data-reveal>
-        <span class="eyebrow">{t('home.stack.eyebrow')}</span>
-        <h2>{t('home.stack.title')}</h2>
-      </div>
-      <div class="stack-grid" data-reveal>
-        {stack.map((tech) => <span class="stack-chip mono">{tech}</span>)}
-      </div>
     </div>
   </section>
 
@@ -312,16 +271,9 @@ const heroFeatureIcons = [
     }
   }
 
-  .paths-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: var(--sx-space-6);
-    margin-bottom: var(--sx-space-8);
-  }
-
   .why-grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(2, 1fr);
     gap: var(--sx-space-8);
   }
   .why-item__n {
@@ -341,21 +293,6 @@ const heroFeatureIcons = [
     margin-bottom: var(--sx-space-8);
   }
 
-  .stack-grid {
-    display: flex;
-    flex-wrap: wrap;
-    gap: var(--sx-space-3);
-  }
-  .stack-chip {
-    padding: var(--sx-space-2) var(--sx-space-4);
-    border: 1px solid var(--sx-slate-700);
-    border-radius: var(--sx-radius-md);
-    font-size: var(--fs-sm);
-    color: var(--sx-slate-300);
-    transition: all var(--sx-duration-base) var(--sx-ease-standard);
-  }
-  .stack-chip:hover { border-color: var(--sx-tech-cyan); color: var(--sx-tech-cyan); }
-
   .cta-final { text-align: center; }
   .cta-final__inner { max-width: 560px; margin: 0 auto; }
   .cta-final__rule { width: 72px; margin: 0 auto var(--sx-space-6); }
@@ -363,8 +300,6 @@ const heroFeatureIcons = [
   @media (max-width: 900px) {
     .hero__stats { grid-template-columns: 1fr 1fr; }
     .hero__stats > :last-child { grid-column: 1 / -1; }
-    .paths-grid { grid-template-columns: 1fr; }
-    .why-grid { grid-template-columns: 1fr 1fr; }
   }
   @media (max-width: 560px) {
     .hero__stats { grid-template-columns: 1fr; }

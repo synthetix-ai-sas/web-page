@@ -18,19 +18,10 @@ const nav = [
     children: [
       { label: t('nav.services.dev'), href: localizePath('/servicios#desarrollo', lang) },
       { label: t('nav.services.agents'), href: localizePath('/servicios#agentes', lang) },
-      { label: t('nav.services.vibe'), href: localizePath('/servicios#vibe-to-production', lang) },
+      { label: t('nav.services.consulting'), href: localizePath('/servicios#consultoria', lang) },
     ],
   },
-  {
-    label: t('nav.industries'),
-    href: localizePath('/industrias', lang),
-    children: [
-      { label: t('ind.finanzas'), href: localizePath('/industrias#finanzas', lang) },
-      { label: t('ind.salud'), href: localizePath('/industrias#salud', lang) },
-      { label: t('ind.logistica'), href: localizePath('/industrias#logistica', lang) },
-      { label: t('nav.industries.all'), href: localizePath('/industrias', lang) },
-    ],
-  },
+  { label: t('nav.industries'), href: localizePath('/industrias', lang) },
   { label: t('nav.products'), href: localizePath('/productos', lang) },
   {
     label: t('nav.about'),
