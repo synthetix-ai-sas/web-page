@@ -91,9 +91,14 @@ every command above. If you hit that, switch the active Node version
 - **Pages with no reliable cross-locale URL** (e.g. a blog post that may
   not have a same-slug translation): pass `Layout`'s optional
   `langAlternates={{ es, en }}` prop (threaded down to `Navbar` too) to
-  override the default `switchLangPath`-based ES/EN link — see
-  `BlogPostPage.astro` for the pattern (it points both to the blog index
-  instead of a guessed, possibly-404 same-slug path).
+  override the default `switchLangPath`-based ES/EN link. It only drives
+  the Navbar switcher/banner target (and the hreflang targets on pages
+  that emit hreflang); canonical and og:url always come from the page's
+  own URL (`Astro.url.pathname`, trailing slash ensured). Pages with no
+  translation pair also pass the optional `noAlternates` prop so no
+  hreflang or og:locale:alternate is emitted — see `BlogPostPage.astro`
+  for the pattern (it points both to the blog index instead of a guessed,
+  possibly-404 same-slug path).
 - **Blog / Content Collections** (`src/content.config.ts`):
   - Two independent collections, `blog-es` and `blog-en`, each loaded via
     `glob({ pattern: '**/*.md', base: './src/content/blog-{es,en}' })` —
