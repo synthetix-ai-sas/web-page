@@ -34,10 +34,9 @@ Delete:
 Edit:
 
 - `src/i18n/routes.ts` — remove the `carreras` and `casos-de-exito` entries
-  from `slugMap`.
-- `astro.config.mjs` — the comment above `oldEnSlugPaths` says "8 on-demand
-  redirect stub pages"; update the count to reflect the remaining stubs
-  (6) once `routes.ts` only has 6 entries.
+  from `slugMap`. `astro.config.mjs`'s `oldEnSlugPaths` is derived from
+  `Object.keys(slugMap)` at build time, so it automatically drops the two
+  removed stub paths — no edit needed there.
 - `src/components/Navbar.astro` — remove the `nav.careers` and `nav.cases`
   top-level nav entries.
 - `src/components/Footer.astro` — remove the Carreras and Casos de Éxito
