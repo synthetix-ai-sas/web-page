@@ -295,7 +295,14 @@ export const ui = {
     'about.team.eyebrow': 'Nuestro Equipo',
     'about.team.title': 'Las personas detrás de Synthetix AI',
     'about.team.lead': 'Un equipo fundador con experiencia en ingeniería de software y arquitectura de IA.',
-    'about.team.role': 'Cofundador',
+    'about.team.cristian.role': 'Equipo Fundador',
+    'about.team.cristian.bio': 'Contribuye a la dirección técnica y de producto de Synthetix AI.',
+    'about.team.sergio.role': 'Equipo Fundador',
+    'about.team.sergio.bio': 'Contribuye a la dirección técnica y de producto de Synthetix AI.',
+    'about.team.santiago.role': 'Equipo Fundador',
+    'about.team.santiago.bio': 'Contribuye a la dirección técnica y de producto de Synthetix AI.',
+    'about.team.mateo.role': 'Equipo Fundador',
+    'about.team.mateo.bio': 'Contribuye a la dirección técnica y de producto de Synthetix AI.',
 
     // ---- Blog ----
     'blog.meta.title': 'Blog de Synthetix AI',
@@ -593,7 +600,14 @@ export const ui = {
     'about.team.eyebrow': 'Our Team',
     'about.team.title': 'The people behind Synthetix AI',
     'about.team.lead': 'A founding team with a background in software engineering and AI architecture.',
-    'about.team.role': 'Co-Founder',
+    'about.team.cristian.role': 'Founding Team',
+    'about.team.cristian.bio': 'Contributes to Synthetix AI’s technical and product direction.',
+    'about.team.sergio.role': 'Founding Team',
+    'about.team.sergio.bio': 'Contributes to Synthetix AI’s technical and product direction.',
+    'about.team.santiago.role': 'Founding Team',
+    'about.team.santiago.bio': 'Contributes to Synthetix AI’s technical and product direction.',
+    'about.team.mateo.role': 'Founding Team',
+    'about.team.mateo.bio': 'Contributes to Synthetix AI’s technical and product direction.',
 
     // ---- Blog ----
     'blog.meta.title': 'Synthetix AI Blog',

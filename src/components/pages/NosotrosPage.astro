@@ -16,11 +16,11 @@ const steps: { title: UiKey; body: UiKey }[] = [
   { title: "about.how.3.title", body: "about.how.3.body" },
 ];
 
-const team = [
-  { name: "Cristian Montes", initials: "CM" },
-  { name: "Sergio Molina", initials: "SM" },
-  { name: "Santiago Rentería", initials: "SR" },
-  { name: "Mateo Rodríguez", initials: "MR" },
+const team: { name: string; initials: string; role: UiKey; bio: UiKey }[] = [
+  { name: "Cristian Montes", initials: "CM", role: "about.team.cristian.role", bio: "about.team.cristian.bio" },
+  { name: "Sergio Molina", initials: "SM", role: "about.team.sergio.role", bio: "about.team.sergio.bio" },
+  { name: "Santiago Rentería", initials: "SR", role: "about.team.santiago.role", bio: "about.team.santiago.bio" },
+  { name: "Mateo Rodríguez", initials: "MR", role: "about.team.mateo.role", bio: "about.team.mateo.bio" },
 ];
 
 const faqs: { q: UiKey; a: UiKey }[] = [
@@ -91,7 +91,8 @@ const faqJsonLd = {
             <div class="team-card" data-reveal>
               <Avatar initials={member.initials} />
               <h4>{member.name}</h4>
-              <p class="team-role">{t("about.team.role")}</p>
+              <p class="team-role">{t(member.role)}</p>
+              <p class="team-bio">{t(member.bio)}</p>
             </div>
           ))
         }
@@ -131,7 +132,7 @@ const faqJsonLd = {
   }
   .team-grid {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(2, 1fr);
     gap: var(--sx-space-6);
     text-align: center;
   }
@@ -142,6 +143,11 @@ const faqJsonLd = {
     color: var(--sx-slate-400);
     font-size: var(--fs-sm);
     margin: 0;
+  }
+  .team-bio {
+    font-size: var(--fs-sm);
+    margin: var(--sx-space-3) auto 0;
+    max-width: 42ch;
   }
   .faq-list {
     max-width: 720px;
@@ -178,9 +184,6 @@ const faqJsonLd = {
     }
     .grid-3 > :last-child {
       grid-column: 1 / -1;
-    }
-    .team-grid {
-      grid-template-columns: 1fr 1fr;
     }
   }
   @media (max-width: 560px) {
