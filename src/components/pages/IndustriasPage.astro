@@ -10,16 +10,52 @@ interface Props {
 const { lang } = Astro.props;
 const t = useTranslations(lang);
 
-const industries: { id?: string; name: UiKey; desc: UiKey }[] = [
-  { id: 'salud', name: 'ind.salud', desc: 'ind.salud.desc' },
-  { id: 'finanzas', name: 'ind.finanzas', desc: 'ind.finanzas.desc' },
-  { id: 'logistica', name: 'ind.logistica', desc: 'ind.logistica.desc' },
-  { name: 'ind.construccion', desc: 'ind.construccion.desc' },
-  { name: 'ind.proptech', desc: 'ind.proptech.desc' },
-  { name: 'ind.ecommerce', desc: 'ind.ecommerce.desc' },
-  { name: 'ind.educacion', desc: 'ind.educacion.desc' },
-  { name: 'ind.suministro', desc: 'ind.suministro.desc' },
-  { name: 'ind.hoteleria', desc: 'ind.hoteleria.desc' },
+const industries: { name: UiKey; desc: UiKey; icon: string }[] = [
+  {
+    name: 'ind.salud',
+    desc: 'ind.salud.desc',
+    icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12h4l2-6 4 12 2-6h6"/></svg>',
+  },
+  {
+    name: 'ind.finanzas',
+    desc: 'ind.finanzas.desc',
+    icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 20V12M12 20V6M19 20v-8"/><path d="M3 20h18"/></svg>',
+  },
+  {
+    name: 'ind.logistica',
+    desc: 'ind.logistica.desc',
+    icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7h11v9H3zM14 11h4l3 3v2h-7z"/><circle cx="7" cy="18" r="1.6"/><circle cx="17.5" cy="18" r="1.6"/></svg>',
+  },
+  {
+    name: 'ind.construccion',
+    desc: 'ind.construccion.desc',
+    icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 21V9l6-4 6 4v12M4 21h16M10 21v-6h4v6"/></svg>',
+  },
+  {
+    name: 'ind.proptech',
+    desc: 'ind.proptech.desc',
+    icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l9-7 9 7"/><path d="M5 10v10h14V10"/></svg>',
+  },
+  {
+    name: 'ind.ecommerce',
+    desc: 'ind.ecommerce.desc',
+    icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 4h2l2.4 12.4a2 2 0 0 0 2 1.6h7.2a2 2 0 0 0 2-1.6L20 8H6"/><circle cx="9" cy="20" r="1"/><circle cx="17" cy="20" r="1"/></svg>',
+  },
+  {
+    name: 'ind.educacion',
+    desc: 'ind.educacion.desc',
+    icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 8l10-5 10 5-10 5-10-5z"/><path d="M6 11v5c0 1.5 3 3 6 3s6-1.5 6-3v-5"/></svg>',
+  },
+  {
+    name: 'ind.suministro',
+    desc: 'ind.suministro.desc',
+    icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="6" height="6" rx="1"/><rect x="15" y="3" width="6" height="6" rx="1"/><rect x="9" y="15" width="6" height="6" rx="1"/><path d="M6 9v3h12V9M12 12v3"/></svg>',
+  },
+  {
+    name: 'ind.hoteleria',
+    desc: 'ind.hoteleria.desc',
+    icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 19v-7a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2M3 19h18M13 14h6a2 2 0 0 1 2 2v3M7 10V7a2 2 0 0 1 2-2h0"/></svg>',
+  },
 ];
 ---
 <Layout title={t('ind.meta.title')} description={t('ind.meta.description')} lang={lang}>
@@ -34,7 +70,8 @@ const industries: { id?: string; name: UiKey; desc: UiKey }[] = [
   <section class="grain-surface">
     <div class="container industry-grid">
       {industries.map((i) => (
-        <Card data-reveal id={i.id}>
+        <Card data-reveal>
+          <span class="industry-card__icon" set:html={i.icon} />
           <h3>{t(i.name)}</h3>
           <p>{t(i.desc)}</p>
         </Card>
@@ -59,6 +96,18 @@ const industries: { id?: string; name: UiKey; desc: UiKey }[] = [
     grid-template-columns: repeat(3, 1fr);
     gap: var(--sx-space-6);
   }
+  .industry-card__icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: var(--sx-radius-md);
+    border: 1px solid var(--sx-slate-700);
+    color: var(--sx-tech-cyan);
+    margin-bottom: var(--sx-space-4);
+  }
+  .industry-card__icon :global(svg) { width: 20px; height: 20px; }
   .cta-final { text-align: center; }
   .cta-final__inner { max-width: 560px; margin: 0 auto; }
   .cta-final__rule { width: 72px; margin: 0 auto var(--sx-space-6); }
