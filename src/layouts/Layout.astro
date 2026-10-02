@@ -13,21 +13,28 @@ interface Props {
   /** Path (or absolute URL) to the Open Graph / Twitter card image. Defaults
    * to the site-wide 1200x630 interim OG image. */
   ogImage?: string;
-  /** Overrides the ES/EN alternate link targets (canonical/hreflang tags,
-   * the language banner, and the Navbar language switcher) for pages whose
+  /** Overrides the ES/EN alternate link targets (hreflang tags, the
+   * language banner, and the Navbar language switcher; not the canonical) for pages whose
    * current URL has no real counterpart in the other locale — e.g. a blog
    * post that only exists in one language. Both values must already be
    * localized paths (built with `localizePath`). */
   langAlternates?: { es: string; en: string };
+  /** Set for pages with no counterpart in the other locale (e.g. blog posts,
+   * which are not paired across languages): omits the hreflang alternates and
+   * og:locale:alternate, since they would advertise a translation that does
+   * not exist. */
+  noAlternates?: boolean;
 }
-const { title, lang, ogImage = '/og-image.png', langAlternates } = Astro.props;
+const { title, lang, ogImage = '/og-image.png', langAlternates, noAlternates = false } = Astro.props;
 const t = useTranslations(lang);
 const description = Astro.props.description ?? t('footer.tagline');
 
 const currentPath = Astro.url.pathname;
 const esHref = new URL(langAlternates?.es ?? switchLangPath(currentPath, 'es'), Astro.site).toString();
 const enHref = new URL(langAlternates?.en ?? switchLangPath(currentPath, 'en'), Astro.site).toString();
-const canonicalHref = lang === 'es' ? esHref : enHref;
+// The canonical is always this page's own URL — langAlternates only steers
+// the language switcher/banner and must never leak into it.
+const canonicalHref = new URL(currentPath.endsWith('/') ? currentPath : `${currentPath}/`, Astro.site).toString();
 const ogLocale = { es: 'es_ES', en: 'en_US' } as const satisfies Record<Lang, string>;
 
 const fullTitle = `${title} — Synthetix AI`;
@@ -122,11 +129,11 @@ const langBannerHref = langAlternates ? langAlternates[otherLang] : switchLangPa
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
 
     <link rel="canonical" href={canonicalHref} />
-    <link rel="alternate" hreflang="es" href={esHref} />
-    <link rel="alternate" hreflang="en" href={enHref} />
-    <link rel="alternate" hreflang="x-default" href={esHref} />
+    {!noAlternates && <link rel="alternate" hreflang="es" href={esHref} />}
+    {!noAlternates && <link rel="alternate" hreflang="en" href={enHref} />}
+    {!noAlternates && <link rel="alternate" hreflang="x-default" href={esHref} />}
     <meta property="og:locale" content={ogLocale[lang]} />
-    <meta property="og:locale:alternate" content={ogLocale[lang === 'es' ? 'en' : 'es']} />
+    {!noAlternates && <meta property="og:locale:alternate" content={ogLocale[lang === 'es' ? 'en' : 'es']} />}
 
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="Synthetix AI" />
