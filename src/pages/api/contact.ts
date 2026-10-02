@@ -18,6 +18,7 @@ function escapeHtml(value: string): string {
 interface ContactEmailFields {
   name: string;
   email: string;
+  phone: string;
   company: string;
   message: string;
 }
@@ -35,15 +36,19 @@ function buildFieldRow(label: string, value: string, isLast: boolean): string {
 }
 
 function buildContactEmailHtml(fields: ContactEmailFields): string {
-  const { name, email, company, message } = fields;
+  const { name, email, phone, company, message } = fields;
   const safeName = escapeHtml(name);
   const safeEmail = escapeHtml(email);
+  const safePhone = phone ? escapeHtml(phone) : '';
   const safeCompany = company ? escapeHtml(company) : '';
   const safeMessage = escapeHtml(message).replace(/\n/g, '<br>');
 
   const rows: string[] = [];
   rows.push(buildFieldRow('Nombre', safeName, false));
-  rows.push(buildFieldRow('Correo', safeEmail, !company));
+  rows.push(buildFieldRow('Correo', safeEmail, !phone && !company));
+  if (phone) {
+    rows.push(buildFieldRow('Teléfono', safePhone, !company));
+  }
   if (company) {
     rows.push(buildFieldRow('Empresa', safeCompany, true));
   }
@@ -93,8 +98,11 @@ function buildContactEmailHtml(fields: ContactEmailFields): string {
 }
 
 function buildContactEmailText(fields: ContactEmailFields): string {
-  const { name, email, company, message } = fields;
+  const { name, email, phone, company, message } = fields;
   const lines = [`Nombre: ${name}`, `Correo: ${email}`];
+  if (phone) {
+    lines.push(`Teléfono: ${phone}`);
+  }
   if (company) {
     lines.push(`Empresa: ${company}`);
   }
@@ -112,6 +120,7 @@ export const POST: APIRoute = async ({ request }) => {
 
   const name = typeof body.name === 'string' ? body.name.trim() : '';
   const email = typeof body.email === 'string' ? body.email.trim() : '';
+  const phone = typeof body.phone === 'string' ? body.phone.trim() : '';
   const company = typeof body.company === 'string' ? body.company.trim() : '';
   const message = typeof body.message === 'string' ? body.message.trim() : '';
   // Honeypot: real users never fill this hidden field, bots often do.
@@ -139,8 +148,8 @@ export const POST: APIRoute = async ({ request }) => {
     to: TO_EMAIL,
     replyTo: email,
     subject: `Nuevo contacto: ${name}${company ? ` (${company})` : ''}`,
-    html: buildContactEmailHtml({ name, email, company, message }),
-    text: buildContactEmailText({ name, email, company, message }),
+    html: buildContactEmailHtml({ name, email, phone, company, message }),
+    text: buildContactEmailText({ name, email, phone, company, message }),
   });
 
   if (error) {

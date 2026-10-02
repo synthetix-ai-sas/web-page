@@ -78,6 +78,24 @@ const faqJsonLd = {
     </div>
   </section>
 
+  <section id="mision-vision">
+    <div class="container">
+      <div class="section-head" data-reveal>
+        <span class="eyebrow">{t("about.mv.eyebrow")}</span>
+      </div>
+      <div class="mv-grid">
+        <Card data-reveal>
+          <h3>{t("about.mission.title")}</h3>
+          <p>{t("about.mission.body")}</p>
+        </Card>
+        <Card data-reveal>
+          <h3>{t("about.vision.title")}</h3>
+          <p>{t("about.vision.body")}</p>
+        </Card>
+      </div>
+    </div>
+  </section>
+
   <section id="equipo" class="grain-surface">
     <div class="container">
       <div class="section-head" data-reveal>
@@ -128,6 +146,11 @@ const faqJsonLd = {
   .grid-3 {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
+    gap: var(--sx-space-6);
+  }
+  .mv-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
     gap: var(--sx-space-6);
   }
   .team-grid {
@@ -188,6 +211,9 @@ const faqJsonLd = {
   }
   @media (max-width: 560px) {
     .grid-3 {
+      grid-template-columns: 1fr;
+    }
+    .mv-grid {
       grid-template-columns: 1fr;
     }
     .team-grid {
