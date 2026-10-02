@@ -267,8 +267,8 @@ pnpm run build
 Expected: `astro check` reports exactly the same 3 pre-existing errors (no new ones, no errors about missing `CarrerasPage`/`CasosPage`/removed keys). `pnpm run build` succeeds. Then confirm the old routes are gone and nothing links to them:
 
 ```bash
-test ! -d dist/carreras && test ! -d dist/casos-de-exito && test ! -d dist/en/careers && test ! -d dist/en/case-studies && echo "OK: old routes absent"
-grep -rl "carreras\|casos-de-exito\|nav.careers\|nav.cases" dist --include="*.html" || echo "OK: no leftover links"
+test ! -d dist/client/carreras && test ! -d dist/client/casos-de-exito && test ! -d dist/client/en/careers && test ! -d dist/client/en/case-studies && echo "OK: old routes absent"
+grep -rl "carreras\|casos-de-exito\|nav.careers\|nav.cases" dist/client --include="*.html" || echo "OK: no leftover links"
 ```
 
 Expected: both `echo "OK"` lines print; the `grep` line finds nothing (its own `|| echo` only fires because `grep -rl` exits non-zero on no matches).
@@ -536,8 +536,8 @@ const breadcrumbLabelKeys: Partial<Record<string, Parameters<typeof t>[0]>> = {
 ```bash
 pnpm exec astro check
 pnpm run build
-grep -o '<h1>[^<]*</h1>' dist/productos/index.html
-grep -o '<h1>[^<]*</h1>' dist/en/products/index.html
+grep -o '<h1>[^<]*</h1>' dist/client/productos/index.html
+grep -o '<h1>[^<]*</h1>' dist/client/en/products/index.html
 ```
 
 Expected: `astro check` shows only the same 3 pre-existing errors. Build succeeds. The two `grep` lines print `<h1>Productos que aceleran tu operación</h1>` and `<h1>Products that accelerate your operation</h1>` respectively.
@@ -938,8 +938,8 @@ const breadcrumbLabelKeys: Partial<Record<string, Parameters<typeof t>[0]>> = {
 ```bash
 pnpm exec astro check
 pnpm run build
-grep -o '<h3>[^<]*</h3>' dist/blog/index.html
-grep -o '<h3>[^<]*</h3>' dist/en/blog/index.html
+grep -o '<h3>[^<]*</h3>' dist/client/blog/index.html
+grep -o '<h3>[^<]*</h3>' dist/client/en/blog/index.html
 ```
 
 Expected: `astro check` shows only the 3 pre-existing errors. Build succeeds. The ES grep prints `<h3>Cómo pensamos la arquitectura de sistemas de IA</h3>` (only the one published post — the draft must not appear). The EN grep prints `<h3>How we think about AI systems architecture</h3>` (same: only the published one).
@@ -1207,11 +1207,11 @@ const { entry } = Astro.props;
 ```bash
 pnpm exec astro check
 pnpm run build
-test -f dist/blog/arquitectura-sistemas-de-ia/index.html && echo "OK: ES post built"
-test -f dist/en/blog/ai-systems-architecture/index.html && echo "OK: EN post built"
-test ! -e dist/blog/notas-sprint-transformacion && echo "OK: ES draft not built"
-test ! -e dist/en/blog/transformation-sprint-notes && echo "OK: EN draft not built"
-grep -o 'class="sx-lang__btn"[^>]*href="[^"]*"' dist/blog/arquitectura-sistemas-de-ia/index.html
+test -f dist/client/blog/arquitectura-sistemas-de-ia/index.html && echo "OK: ES post built"
+test -f dist/client/en/blog/ai-systems-architecture/index.html && echo "OK: EN post built"
+test ! -e dist/client/blog/notas-sprint-transformacion && echo "OK: ES draft not built"
+test ! -e dist/client/en/blog/transformation-sprint-notes && echo "OK: EN draft not built"
+grep -o 'class="sx-lang__btn"[^>]*href="[^"]*"' dist/client/blog/arquitectura-sistemas-de-ia/index.html
 ```
 
 Expected: `astro check` shows only the 3 pre-existing errors. Build succeeds. All four `test`/`echo` lines print their `OK` message. The final `grep` (adjust attribute order if needed — the point is to inspect the rendered `sx-lang__btn` anchors) shows the EN language-switcher link pointing at `/en/blog/` (the blog index), not at a nonexistent `/en/blog/arquitectura-sistemas-de-ia/`.
@@ -1284,7 +1284,7 @@ const { initials, photo } = Astro.props;
 ```bash
 pnpm exec astro check
 pnpm run build
-grep -o '<h1>[^<]*</h1>' dist/nosotros/index.html
+grep -o '<h1>[^<]*</h1>' dist/client/nosotros/index.html
 ```
 
 Expected: `astro check` shows only the 3 pre-existing errors (no new error — `NosotrosPage.astro` still calls `<Avatar initials={member.initials} />` with no `photo`, which the new optional prop accepts unchanged). Build succeeds, and the Nosotros page still renders (confirms this change didn't break the existing page before Task 7 touches it).
@@ -1491,9 +1491,9 @@ to:
 ```bash
 pnpm exec astro check
 pnpm run build
-grep -o '<p class="team-role">[^<]*</p>' dist/nosotros/index.html
-grep -o '<p class="team-bio">[^<]*</p>' dist/nosotros/index.html
-grep -o '<p class="team-role">[^<]*</p>' dist/en/about/index.html
+grep -o '<p class="team-role">[^<]*</p>' dist/client/nosotros/index.html
+grep -o '<p class="team-bio">[^<]*</p>' dist/client/nosotros/index.html
+grep -o '<p class="team-role">[^<]*</p>' dist/client/en/about/index.html
 ```
 
 Expected: `astro check` shows only the 3 pre-existing errors. Build succeeds. The first `grep` prints four `Equipo Fundador` lines (one per team member). The second prints four bio paragraphs. The third (EN page) prints four `Founding Team` lines.
@@ -1524,10 +1524,10 @@ Expected: install succeeds with no changes (no new dependencies were added anywh
 - [ ] **Step 2: Confirm removed routes are gone and new routes exist**
 
 ```bash
-test ! -d dist/carreras && test ! -d dist/casos-de-exito && test ! -d dist/en/careers && test ! -d dist/en/case-studies
-test -f dist/productos/index.html && test -f dist/en/products/index.html
-test -f dist/blog/index.html && test -f dist/en/blog/index.html
-test -f dist/blog/arquitectura-sistemas-de-ia/index.html && test -f dist/en/blog/ai-systems-architecture/index.html
+test ! -d dist/client/carreras && test ! -d dist/client/casos-de-exito && test ! -d dist/client/en/careers && test ! -d dist/client/en/case-studies
+test -f dist/client/productos/index.html && test -f dist/client/en/products/index.html
+test -f dist/client/blog/index.html && test -f dist/client/en/blog/index.html
+test -f dist/client/blog/arquitectura-sistemas-de-ia/index.html && test -f dist/client/en/blog/ai-systems-architecture/index.html
 echo "OK: all route assertions passed"
 ```
 
